@@ -86,20 +86,21 @@ while True:
                                 
                                 if client["mail"] == email_livraison:
                                     i -= 1
+                                    print(i)
                                     break
                             
                             # On ajoute la livraison a l'historique de livraison
                             historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison: quantite_produit_livraison}}
-                                
+                                                            
                             # On ajout ou mise a jour du produit selectionné 
-                            if bool(historiques) == False:
+                            if (bool(historiques) == False) or (email_livraison != historiques[i]["mail"]):
+                                print("condition 1")
                                 historiques.append(historique_client)
                             else:
                                 historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
                             
                             print(historiques)
-                            
-                                 
+                                    
                             continuer = input("Voulez vous effectuer un autres livraison ? : ").upper()
                             if continuer == "":
                                 break

@@ -74,10 +74,7 @@ while True:
                         print("Vous de devez saisir un nombre entier comme quantité du produit a livrer")
 
                     else: 
-                        
-                        # On ajoute la livraison a l'historique de livraison
-                        historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison}}
-                        
+
                         # On verifie la quantité de la livraison
                         if listes_produits[produit_livraison] >= quantite_produit_livraison:
                             listes_produits[produit_livraison] -= quantite_produit_livraison
@@ -88,14 +85,17 @@ while True:
                                 i += 1
                                 
                                 if client["mail"] == email_livraison:
-                                    i = i - 1
+                                    i -= 1
                                     break
+                            
+                            # On ajoute la livraison a l'historique de livraison
+                            historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison: quantite_produit_livraison}}
                                 
                             # On ajout ou mise a jour du produit selectionné 
-                            if produit_livraison in historiques[i]["liste_produits_livre"].keys():
-                                historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
-                            else:
+                            if bool(historiques) == False:
                                 historiques.append(historique_client)
+                            else:
+                                historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
                             
                             print(historiques)
                             

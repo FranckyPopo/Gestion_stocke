@@ -3,7 +3,7 @@ from time import sleep
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui va contenir tout les produits et clients
-listes_produits = {"pomme": 10}
+listes_produits = {"pomme": 10, "carote": 50}
 listes_clients = {"afri": "afri@gmail.com"}
 historiques = []
 
@@ -96,8 +96,12 @@ while True:
                             if (bool(historiques) == False) or (email_livraison != historiques[i]["mail"]):
                                 print("condition 1")
                                 historiques.append(historique_client)
+                                
+                            elif produit_livraison not in historiques[i]["liste_produits_livre"].keys():
+                                historiques[i]["liste_produits_livre"][produit_livraison] = quantite_produit_livraison
                             else:
-                                historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
+                                pass
+                                #historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
                             
                             print(historiques)
                                     

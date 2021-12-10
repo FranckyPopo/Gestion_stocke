@@ -2,9 +2,10 @@ from time import sleep
 
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
-# Création des dictionnaires qui va contenir tout les produits et clients
+# Création des dictionnaires qui von contenir tout les produits, clients et autres
 listes_produits = {"pomme": 10, "carote": 50}
-listes_clients = {"afri": "afri@gmail.com"}
+listes_clients = {"afri": "afri@gmail.com", "popo": "popo@gmail.com"}
+liste_emails = ["afri@gmail.com", "popo@gmail.com"]
 historiques = []
 
 while True:
@@ -46,6 +47,9 @@ while True:
                 listes_clients[nom_client] = email_client
                 print("Vous venez d'enregistrer un nouveau client")
                 
+                # On ajoute l'email
+                liste_emails.append(email_client)
+                                
                 sleep(3)
             else:
                 print("Imposible de vous enregistrer cas cette addresse mail a déja été utiliser pour un autres client")
@@ -79,26 +83,22 @@ while True:
                         if listes_produits[produit_livraison] >= quantite_produit_livraison:
                             listes_produits[produit_livraison] -= quantite_produit_livraison
                             
-                            # On recherche un client
-                            i = 0
-                            for client in historiques:
-                                i += 1
-                                
-                                if client["mail"] == email_livraison:
-                                    i -= 1
-                                    print(i)
-                                    break
+                            # On recupere l'index de notre client
+                            if email_livraison in liste_emails:
+                                print("l'index existe")
+                                index = liste_emails.index(email_livraison)
                             
                             # On ajoute la livraison a l'historique de livraison
                             historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison: quantite_produit_livraison}}
                                                             
                             # On ajout ou mise a jour du produit selectionné 
-                            if (bool(historiques) == False) or (email_livraison != historiques[i]["mail"]):
+                            if (bool(historiques) == False) or (email_livraison not in liste_emails):
                                 print("condition 1")
                                 historiques.append(historique_client)
                                 
-                            elif produit_livraison not in historiques[i]["liste_produits_livre"].keys():
-                                historiques[i]["liste_produits_livre"][produit_livraison] = quantite_produit_livraison
+                            elif produit_livraison not in historiques[index]["liste_produits_livre"].keys():
+                                historiques[index]["liste_produits_livre"][produit_livraison] = quantite_produit_livraison
+                                
                             else:
                                 pass
                                 #historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison

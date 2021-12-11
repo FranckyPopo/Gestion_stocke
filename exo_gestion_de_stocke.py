@@ -8,8 +8,6 @@ listes_clients = []
 historiques = []
 
 while True:
-    print(listes_produits)
-
     print("1- Se ravitailler")
     print("2- Ajouter un client")
     print("3- Effectuer une livraison")
@@ -58,7 +56,7 @@ while True:
                             print("Vous venez d'ajouter un nouveau produit")
                             sleep(3)  
                 
-                continuer = input("Voulez vous continuer ? Si oui taper une lettre au hasard, sinon taper entrer")
+                continuer = input("Voulez vous continuer ? Si oui taper une lettre au hasard, sinon taper entrer: ")
                 if not continuer:
                     break
             else:
@@ -71,8 +69,31 @@ while True:
             nom_client = input("Veuillez entrer le nom du client: ")
             email_client = input("Veuillez entrer l'addresse mail du client: ")
             
-            for client in listes_clients:
-                client_existe
+            # Création de l'instance qui va representer un client
+            instance_client = {"nom": nom_client, "email": email_client}
+            
+            if not listes_clients:
+                listes_clients.append(instance_client)
+                print("Vous venez d'ajouter un nouveau client")
+                sleep(3)
+            else:
+                
+                for client in listes_clients:
+                    client_existe = True if client["email"] == email_client else False
+                
+                if client_existe:
+                    print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
+                    sleep(3)
+                else:
+                    listes_clients.append(instance_client)
+                    print("Vous venez d'ajouter un nouveau client")
+                    sleep(3)
+
+            continuer = input("Voulez vous continuer a ajouter des client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+            if not continuer:
+                break
+                
+            print(listes_clients)
             
     # elif option == 3:
     #     print("Pour affectuer une livraison vous devez entrer le nom du produit ainsi que la quantité")

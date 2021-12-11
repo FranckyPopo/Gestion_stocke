@@ -3,92 +3,85 @@ from time import sleep
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui va contenir tout les produits et clients
-listes_produits = [{"nom_produit": "pomme", "quantité_produit": 5}]
+listes_produits = [{"nom_produit": "viande", "quantite_produit": 5}]
 listes_clients = []
 historiques = []
 
 while True:
+    print(listes_produits)
+
     print("1- Se ravitailler")
     print("2- Ajouter un client")
     print("3- Effectuer une livraison")
     print("4- Voir l'historique des livraisons")
-    
-    
+  
     option = int(input("Veuillez choisir une option: "))
 
     if option == 1:
         
+       
         while True:
+        
             nom_produit = input("Veuillez entrer le nom du produit: ").lower()
             
             # On verifie que l'utilisateur rentre bien un chiffre
             try:
-                quantité_produit = int(input("Veuillez entrer la quantité: "))
+                quantite_produit = int(input("Veuillez entrer la quantité: "))
             except ValueError:
                 print("Vous devez saisir un nombre entre entier")
             else:
-     
-                if bool(nom_produit):
                     
-                    if bool(listes_produits) == False:
-                        instance_produit = {"nom_produit": nom_produit, "quantité_produit": quantité_produit} 
-                        listes_produits.append(instance_produit)
-                        
-                        print("Vous avez ajouter d'ajour un nouveau produit")
-                        sleep(3)
-                        
-                    else:
-                        i = 0
-                        for produit in listes_produits:
-                            i += 1
-                            # On ajoute ou nous fesons la mise a jour du produit
-                            if produit["nom_produit"] == nom_produit:
-                                print(i)
-                                listes_produits[i-1]["quantité_produit"] += quantité_produit
-                            else:
-                                
-                                instance_produit = {"nom_produit": nom_produit, "quantité_produit": quantité_produit} 
-                                listes_produits.append(instance_produit)
-                                
-                                print("Vous avez ajouter d'ajour un nouveau produit")
-                            
-                                sleep(3)
-                        
-                    print(listes_produits)
-                    
-                    continuer = input("Voulez vous continuer a ajouter des produits ? si oui taper une lettre au hasard sinon taper entrer: ")
-                    
-                    if continuer == "":
-                        break
+                # Création de l'instance qui va representer un produit
+                instance_produit = {"nom_produit": nom_produit, "quantite_produit": quantite_produit}  
+                
+                if not listes_produits:
+                    listes_produits.append(instance_produit)
+                    print("Vous venez d'ajouter un nouveau produit")
+                    sleep(3)  
+                
+                for produit in listes_produits:  
+                    produit_existe = True if nom_produit == produit["nom_produit"] else False
+                
+                quantite_total = produit["quantite_produit"] + quantite_produit
+                if produit_existe:
+                    print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
+                    produit["quantite_produit"] += quantite_produit
+                    sleep(3)
                 else:
-                    print("Vous devez saisir, un nom de produit")
+                    listes_produits.append(instance_produit)
+                    print("Vous venez d'ajouter un nouveau produit")
+                    sleep(3)  
+                
+                        
+                        
+                print(listes_produits)                  
                
-    elif option == 2:                    
-        print("Pour ajouter un client vous devez entrer sont nom et une addresse mail unique")
+    # elif option == 2:                    
+    #     print("Pour ajouter un client vous devez entrer sont nom et une addresse mail unique")
 
-        while True:
-            nom_client = input("Veuillez entrer le nom du client: ")
-            email_client = input("Veuillez entrer l'addresse mail du client: ")
+    #     while True:
+    #         nom_client = input("Veuillez entrer le nom du client: ")
+    #         email_client = input("Veuillez entrer l'addresse mail du client: ")
             
-            #On vérifie que l'addresse email du client n'est pas utiliser pas un autres client 
-            if email_client not in listes_clients.values():
-                listes_clients[nom_client] = email_client
-                print("Vous venez d'enregistrer un nouveau client")
+    #         #On vérifie que l'addresse email du client n'est pas utiliser pas un autres client 
+    #         if email_client not in listes_clients.values():
+    #             listes_clients[nom_client] = email_client
+    #             print("Vous venez d'enregistrer un nouveau client")
                 
-                #On ajoute l'email
-                #liste_emails.append(email_client)
+    #             #On ajoute l'email
+    #             #liste_emails.append(email_client)
                 
-                #On créé un nouvelle historique
-                historique_client = {"mail": email_client, "liste_produits_livre": {None}}
-                historiques.append(historique_client)
+    #             #On créé un nouvelle historique
+    #             historique_client = {"mail": email_client, "liste_produits_livre": {None}}
+    #             historiques.append(historique_client)
                                 
-                sleep(3)
-            else:
-                print("Imposible de vous enregistrer cas cette addresse mail a déja été utiliser pour un autres client")
+    #             sleep(3)
+    #         else:
+    #             print("Imposible de vous enregistrer cas cette addresse mail a déja été utiliser pour un autres client")
                 
-            continuer = input("Voulez vous continuer a ajouter un client ? si taper une lettre au hasard sinon taper entrer : ").upper()
-            if continuer == "":
-                break
+    #         continuer = input("Voulez vous continuer a ajouter un client ? si taper une lettre au hasard sinon taper entrer : ").upper()
+    #         if continuer == "":
+    #             break
             
     # elif option == 3:
     #     print("Pour affectuer une livraison vous devez entrer le nom du produit ainsi que la quantité")

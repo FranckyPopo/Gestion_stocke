@@ -3,14 +3,16 @@ from time import sleep
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui va contenir tout les produits et clients
-listes_produits = {}
-listes_clients = {}
+listes_produits = {"pomme": 10}
+listes_clients = {"afri": "afri@gmail.com"}
+historiques = []
 
 while True:
     print("1- Se ravitailler")
     print("2- Ajouter un client")
     print("3- Effectuer une livraison")
     print("4- Voir l'historique des livraisons")
+    
     
     choix = int(input())
 
@@ -28,11 +30,10 @@ while True:
                 listes_produits[produit] = quantité
             print(listes_produits)
             
-            continuer = input("Voulez vous continuer a ajouter des produits O/N ? : ").upper()
-            if continuer == "N":
+            continuer = input("Voulez vous continuer a ajouter des produits ? si taper une lettre au hasard sinon taper entrer: ").upper()
+            if continuer == "":
                 break
-            
-            
+               
     elif choix == 2:                    
         print("Pour ajouter un client vous devez entrer sont nom et une addresse mail unique")
 
@@ -49,8 +50,8 @@ while True:
             else:
                 print("Imposible de vous enregistrer cas cette addresse mail a déja été utiliser pour un autres client")
                 
-            continuer = input("Voulez vous continuer a ajouter un client O/N ? : ").upper()
-            if continuer == "N":
+            continuer = input("Voulez vous continuer a ajouter un client ? si taper une lettre au hasard sinon taper entrer : ").upper()
+            if continuer == "":
                 break
             
     elif choix == 3:
@@ -64,7 +65,7 @@ while True:
                 produit_livraison = input("Veuillez entrer le nom du produit a livrer : ").lower()
                 
                 if produit_livraison in listes_produits.keys():
-                    
+                                
                     # On vérifie que l'utilisateur ne saisise pas autres choses que des chiffres 
                     try:
                         quantite_produit_livraison = int(input("Veuillez entrer la quantité du produit a livrer: ")) 
@@ -74,12 +75,33 @@ while True:
 
                     else: 
                         
+                        # On ajoute la livraison a l'historique de livraison
+                        historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison}}
+                        
                         # On verifie la quantité de la livraison
                         if listes_produits[produit_livraison] >= quantite_produit_livraison:
                             listes_produits[produit_livraison] -= quantite_produit_livraison
                             
-                            continuer = input("Voulez vous effectuer un autres livraison ? O/N : ").upper()
-                            if continuer == "N":
+                            # On recherche un client
+                            i = 0
+                            for client in historiques:
+                                i += 1
+                                
+                                if client["mail"] == email_livraison:
+                                    i = i - 1
+                                    break
+                                
+                            # On ajout ou mise a jour du produit selectionné 
+                            if produit_livraison in historiques[i]["liste_produits_livre"].keys():
+                                historiques[i]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
+                            else:
+                                historiques.append(historique_client)
+                            
+                            print(historiques)
+                            
+                                 
+                            continuer = input("Voulez vous effectuer un autres livraison ? : ").upper()
+                            if continuer == "":
                                 break
                             
                         else:
@@ -96,4 +118,5 @@ while True:
                 break
     
     elif choix == 4:
-        pass  
+        pass
+    

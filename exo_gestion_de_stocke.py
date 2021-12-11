@@ -3,7 +3,7 @@ from time import sleep
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui va contenir tout les produits et clients
-listes_produits = [{"nom_produit": "viande", "quantite_produit": 5}]
+listes_produits = []
 listes_clients = []
 historiques = []
 
@@ -24,64 +24,55 @@ while True:
         
             nom_produit = input("Veuillez entrer le nom du produit: ").lower()
             
-            # On verifie que l'utilisateur rentre bien un chiffre
-            try:
-                quantite_produit = int(input("Veuillez entrer la quantité: "))
-            except ValueError:
-                print("Vous devez saisir un nombre entre entier")
-            else:
-                    
-                # Création de l'instance qui va representer un produit
-                instance_produit = {"nom_produit": nom_produit, "quantite_produit": quantite_produit}  
-                
-                if not listes_produits:
-                    listes_produits.append(instance_produit)
-                    print("Vous venez d'ajouter un nouveau produit")
-                    sleep(3)  
-                
-                for produit in listes_produits:  
-                    produit_existe = True if nom_produit == produit["nom_produit"] else False
-                
-                quantite_total = produit["quantite_produit"] + quantite_produit
-                if produit_existe:
-                    print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
-                    produit["quantite_produit"] += quantite_produit
-                    sleep(3)
-                else:
-                    listes_produits.append(instance_produit)
-                    print("Vous venez d'ajouter un nouveau produit")
-                    sleep(3)  
-                
-                        
-                        
-                print(listes_produits)                  
-               
-    # elif option == 2:                    
-    #     print("Pour ajouter un client vous devez entrer sont nom et une addresse mail unique")
-
-    #     while True:
-    #         nom_client = input("Veuillez entrer le nom du client: ")
-    #         email_client = input("Veuillez entrer l'addresse mail du client: ")
+            if nom_produit:
             
-    #         #On vérifie que l'addresse email du client n'est pas utiliser pas un autres client 
-    #         if email_client not in listes_clients.values():
-    #             listes_clients[nom_client] = email_client
-    #             print("Vous venez d'enregistrer un nouveau client")
+                # On verifie que l'utilisateur rentre bien un chiffre
+                try:
+                    quantite_produit = int(input("Veuillez entrer la quantité: "))
+                except ValueError:
+                    print("Vous devez saisir un nombre entre entier")
+                    continue
+                else:
+                        
+                    # Création de l'instance qui va representer un produit
+                    instance_produit = {"nom_produit": nom_produit, "quantite_produit": quantite_produit}  
+                    
+                    if not listes_produits:
+                        listes_produits.append(instance_produit)
+                        print("Vous venez d'ajouter un nouveau produit")
+                        sleep(3)  
+                    else:
+                        
+                        # On vérifie que le produit existe
+                        for produit in listes_produits:  
+                            produit_existe = True if nom_produit == produit["nom_produit"] else False
+                    
+                        quantite_total = produit["quantite_produit"] + quantite_produit
+                    
+                        if produit_existe:
+                            print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
+                            produit["quantite_produit"] += quantite_produit
+                            sleep(3)
+                        else:
+                            listes_produits.append(instance_produit)
+                            print("Vous venez d'ajouter un nouveau produit")
+                            sleep(3)  
                 
-    #             #On ajoute l'email
-    #             #liste_emails.append(email_client)
+                continuer = input("Voulez vous continuer ? Si oui taper une lettre au hasard, sinon taper entrer")
+                if not continuer:
+                    break
+            else:
+                print("Vous avez rien entré comme nom de produit")
+            
                 
-    #             #On créé un nouvelle historique
-    #             historique_client = {"mail": email_client, "liste_produits_livre": {None}}
-    #             historiques.append(historique_client)
-                                
-    #             sleep(3)
-    #         else:
-    #             print("Imposible de vous enregistrer cas cette addresse mail a déja été utiliser pour un autres client")
-                
-    #         continuer = input("Voulez vous continuer a ajouter un client ? si taper une lettre au hasard sinon taper entrer : ").upper()
-    #         if continuer == "":
-    #             break
+                                       
+    elif option == 2:                    
+        while True:
+            nom_client = input("Veuillez entrer le nom du client: ")
+            email_client = input("Veuillez entrer l'addresse mail du client: ")
+            
+            for client in listes_clients:
+                client_existe
             
     # elif option == 3:
     #     print("Pour affectuer une livraison vous devez entrer le nom du produit ainsi que la quantité")

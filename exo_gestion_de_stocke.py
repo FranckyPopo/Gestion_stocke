@@ -22,8 +22,7 @@ while True:
     option = int(input("Veuillez choisir une option: "))
 
     if option == 1:
-        
-       
+      
         while True:
         
             nom_produit = input("Veuillez entrer le nom du produit: ").lower()
@@ -47,9 +46,12 @@ while True:
                         sleep(3)  
                     else:
                         
+                        produit_existe = False
                         # On vérifie que le produit existe
                         for produit in listes_produits:  
-                            produit_existe = True if nom_produit == produit["nom_produit"] else False
+                            if nom_produit == produit["nom_produit"]: 
+                                produit_existe = True
+                                break
                     
                         quantite_total = produit["quantite_produit"] + quantite_produit
                     
@@ -124,14 +126,22 @@ while True:
                 }    
         
                 # On verifie que le mail, produit et la quantité demandé existe
+                mail_existe = produit_existe = quantite_existe = False
+                
                 for mail_client in listes_clients:
-                    mail_existe = True if mail_client["email"] == mail_livraison else False
+                    if mail_client["email"] == mail_livraison:
+                        mail_existe = True
+                        break
                     
                 for produits in listes_produits:
-                    produit_existe = True if produits["nom_produit"] == produit_livraison else False
+                    if produits["nom_produit"] == produit_livraison:
+                        produit_existe = True
+                        break
                 
                 for quantite in listes_produits:    
-                    quantite_existe = True if quantite["quantite_produit"] >= quantite_livraison else False
+                    if quantite["quantite_produit"] >= quantite_livraison:
+                        quantite_existe = True
+                        break
                     
                 print(f"le variable produit existe a pour valeur: {produit_existe}")
                     

@@ -4,8 +4,8 @@ print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui von contenir tout les produits, clients et autres
 listes_produits = {"pomme": 10, "carote": 50}
-listes_clients = {"afri": "afri@gmail.com", "popo": "popo@gmail.com"}
-liste_emails = ["afri@gmail.com", "popo@gmail.com"]
+listes_clients = {}
+liste_emails = []
 historiques = []
 
 while True:
@@ -49,6 +49,10 @@ while True:
                 
                 # On ajoute l'email
                 liste_emails.append(email_client)
+                
+                # On créé un nouvelle historique
+                historique_client = {"mail": email_client, "liste_produits_livre": {None}}
+                historiques.append(historique_client)
                                 
                 sleep(3)
             else:
@@ -82,30 +86,39 @@ while True:
                         if listes_produits[produit_livraison] >= quantite_produit_livraison:
                             listes_produits[produit_livraison] -= quantite_produit_livraison      
 
+                            # Cette gérer l'historique de livrason
                             # On recupere l'index de notre client
                             index = liste_emails.index(email_livraison)
                             
                             # On ajoute la livraison a l'historique de livraison
                             historique_client = {"mail": email_livraison, "liste_produits_livre": {produit_livraison: quantite_produit_livraison}}
                             
-                            # On ajoute un etudiant s'il n'existe pas 
 
-                            # On ajout ou mise a jour du produit selectionné 
-                            if (bool(historiques) == False):
-                                print("condition 1")
-                                historiques.append(historique_client)
-                            
-                            # On gére l'ajout et mise a jour d'un nouveau produit
+                            # On gére l'ajout des historiques
+                            # if (bool(historiques) == False):
+                            #     print("condition 1")
+                            #     historiques.append(historique_client)
+                                
+                            # elif bool(historiques):
+                            #     if email_livraison not in liste_emails:
+                                  
+                            #         historiques.append(historique_client)  
+                                
+                            #On gére l'ajout et mise a jour d'un nouveau produit
+                            if produit_livraison not in historiques[index]["liste_produits_livre"].keys():
+                                historiques[index]["liste_produits_livre"][produit_livraison] = quantite_produit_livraison
+                                
                             elif produit_livraison in historiques[index]["liste_produits_livre"].keys():
                                 historiques[index]["liste_produits_livre"][produit_livraison] += quantite_produit_livraison
                             
-                            elif produit_livraison not in historiques[index]["liste_produits_livre"].keys():
-                                historiques[index]["liste_produits_livre"][produit_livraison] = quantite_produit_livraison
-                                                          
+                            
+                                                                                          
                             print(historiques)
                                     
                             continuer = input("Voulez vous effectuer un autres livraison ? : ").upper()
                             if continuer == "":
+                                sleep(3)
+                                print("Felicitation vôtre livraison a bien été effectué")
                                 break
                             
                         else:

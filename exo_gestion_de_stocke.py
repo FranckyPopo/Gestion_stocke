@@ -3,8 +3,14 @@ from time import sleep
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
 # Création des dictionnaires qui va contenir tout les produits et clients
-listes_produits = [{"nom_produit": "pomme", "quantite_produit": 10}, {"nom_produit": "orange", "quantite_produit": 10}, {"nom_produit": "fraise", "quantite_produit": 10},]
-listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}]
+listes_produits = [
+    {"nom_produit": "orange", "quantite_produit": 10}, 
+    {"nom_produit": "fraise", "quantite_produit": 10},
+    {"nom_produit": "pomme", "quantite_produit": 15} 
+
+]
+
+listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
 historiques = []
 
 while True:
@@ -75,9 +81,12 @@ while True:
                 print("Vous venez d'ajouter un nouveau client")
                 sleep(3)
             else:
+                client_existe = False
                 
                 for client in listes_clients:
-                    client_existe = True if client["email"] == email_client else False
+                    if client["email"] == email_client:
+                        client_existe = True
+                        break
                 
                 if client_existe:
                     print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
@@ -100,6 +109,7 @@ while True:
                                  
             mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
             produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
+            print(produit_livraison)
             
             try:
                 quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
@@ -108,34 +118,42 @@ while True:
                 sleep(2)
             else:
                 historique_livraison = {
-                    "email": email_client, 
+                    "email": mail_livraison, 
                     "produit": produit_livraison, 
                     "quantite_livraison": quantite_livraison
                 }    
         
-                # On verifie que le mail, produit et la quantité existe
+                # On verifie que le mail, produit et la quantité demandé existe
                 for mail_client in listes_clients:
                     mail_existe = True if mail_client["email"] == mail_livraison else False
                     
-                for produit in listes_produits:
-                    produit_existe = True if produit["nom_produit"] == produit_livraison else False
-                    quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
+                for produits in listes_produits:
+                    produit_existe = True if produits["nom_produit"] == produit_livraison else False
+                
+                for quantite in listes_produits:    
+                    quantite_existe = True if quantite["quantite_produit"] >= quantite_livraison else False
+                    
+                print(f"le variable produit existe a pour valeur: {produit_existe}")
                     
                 if not mail_existe:
                     print("L'addresse email est incorrecte")
                     sleep(2)
+                    continue
 
                 elif not produit_existe:
                     print("Le produit que vous avez demandé n'existe pas")
                     sleep(2)
-
+                    continue
+                    
                 elif not quantite_existe:
                     print("La quantité que vous avez demandé est superieur a celle qui existe,")
                     sleep(2)
-
+                    continue
                 else:
                     historiques.append(historique_livraison)
+                    produits["quantite_produit"] -= quantite_livraison
                     print("Vous venez d'effectuer un livraison")
+                    sleep(2)
   
                 continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
                 if not continuer:

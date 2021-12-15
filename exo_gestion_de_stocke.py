@@ -10,13 +10,25 @@ listes_produits = [
 ]
 
 listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
-historiques = []
+historiques = [
+    {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 12},
+    {"email": "afrifranck2003", "produit": "Viande", "quantite_livraison": 100},
+    {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 18},
+    {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 2},
+    {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 3},
+    
+    {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 2},
+    {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 8},
+    {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 12},
+    {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 3},  
+]
 
 while True:
     print("1- Se ravitailler")
     print("2- Ajouter un client")
     print("3- Effectuer une livraison")
     print("4- Voir l'historique des livraisons")
+    print("5- Editer produit")
   
     option = int(input("Veuillez choisir une option: "))
 
@@ -171,4 +183,24 @@ while True:
                 print(historiques)
                 
     elif option == 4:
-        pass
+        
+        historique = {}
+        for historique_client in historiques:
+            try:
+                historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]
+                
+            except KeyError:
+                try:
+                    historique[historique_client["email"]].setdefault(historique_client["produit"], historique_client["quantite_livraison"])
+                except KeyError:
+                    historique.setdefault(historique_client["email"], {historique_client["produit"]: historique_client["quantite_livraison"]})
+        
+        # Cette boucle va nous permetre d'afficher les produits
+        for client in historique:
+            print(f"{client} ")
+            sleep(0.5)
+                
+            for produit, valeur in historique[client].items():
+                print(f"{produit} : {valeur}")
+                sleep(0.5)
+    

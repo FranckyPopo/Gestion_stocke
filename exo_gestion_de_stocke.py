@@ -7,7 +7,6 @@ listes_produits = [
     {"nom_produit": "orange", "quantite_produit": 10}, 
     {"nom_produit": "fraise", "quantite_produit": 10},
     {"nom_produit": "pomme", "quantite_produit": 15} 
-
 ]
 
 listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
@@ -171,19 +170,5 @@ while True:
                 
                 print(historiques)
                 
-    
-            
-            
-            
-    
-    # elif option == 4:
-    #     pass
-    
-"""
-1- je veux pouvoir faire uné livraison si un clien existe
-2- J'ai les differentes information qui von me permetre de faire la livrason (email du client et la liste des produits)
-3- 
-    - on verifie que l'email et le produit que l'utilsateur choisit existe
-    - si les differentes information existe on fait la livraison
-    - sinon on affiche un erreur a l'utilisateur
-"""
+    elif option == 4:
+        pass

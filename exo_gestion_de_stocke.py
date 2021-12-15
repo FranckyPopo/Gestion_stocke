@@ -212,6 +212,7 @@ while True:
                 sleep(0.5)
     
     elif option == 5:
+        
         print(" ---------- Bienvenue dans ravitaillement  ----------")
         sleep(1)
         print("1- Editer le nom d'un client \n2- Editer le nom d'un produit \n3- Editer l'historique")
@@ -257,3 +258,6 @@ while True:
                 produit["nom_produit"] = nouveau_nom_produit
                 print(f"Vous venez de modifier le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
                 sleep(3)
+                
+    else:
+        print("Aucun menu est attribuer dans a ce numero")

@@ -24,8 +24,12 @@ historiques = [
 ]
 
 while True:
-    print("1- Se ravitailler \n2- Ajouter un client \n3- Effectuer une livraison \n4- Voir l'historique des livraisons \n5- Editer")
-
+    print("1- Se ravitailler")
+    print("2- Ajouter un client")
+    print("3- Effectuer une livraison")
+    print("4- Voir l'historique des livraisons")
+    print("5- Editer produit")
+  
     option = int(input("Veuillez choisir une option: "))
 
     if option == 1:
@@ -191,7 +195,7 @@ while True:
                 except KeyError:
                     historique.setdefault(historique_client["email"], {historique_client["produit"]: historique_client["quantite_livraison"]})
         
-        # Cette boucle va nous permetre d'afficher le nom et la quantité des produits
+        # Cette boucle va nous permetre d'afficher les produits
         for client in historique:
             print(f"{client} ")
             sleep(0.5)
@@ -201,33 +205,4 @@ while True:
                 sleep(0.5)
     
     elif option == 5:
-        print(" ---------- Bienvenue dans Editer  ----------")
-
-        while True:
-            sleep(2)
-            print("1- Editerle nom d'un client \n2- Editer le nom d'un produit \n3- Editer l'historique \n4- Quitter")
-            
-            choix = int(input("Veuillez entrer fait un choix: "))
-            
-            if choix == 1:
-                verification_nom = input("Veuillez entrer le nom du client a modifier: ".lower())
-                verification_email = input("Veuillez entrer sont addresse mail: ".lower())
-                
-                identifiant_existe = False
-                for client in listes_clients:
-                    if verification_nom == client["nom"] and verification_email == client["email"]:
-                        identifiant_existe = True
-                        break
-                
-                if not identifiant_existe:
-                    print("Les données que vous avez saisit son fausses")
-                    sleep(1)
-                    continue
-                    
-                else:
-                    ancient_nom = client["nom"]
-                    nouveau_nom = input("Veillez entrer le nouveau nom: ".lower())
-                    client["nom"] = nouveau_nom
-                    print(f"Vous venez de modifer le nom du client {ancient_nom} en {nouveau_nom}")
-                    sleep(3)
-                    
+        pass

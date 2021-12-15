@@ -35,6 +35,7 @@ while True:
     if option == 1:
       
         while True:
+            print(" ---------- Bienvenue dans ravitaillement  ----------")
         
             nom_produit = input("Veuillez entrer le nom du produit: ").lower()
             
@@ -81,7 +82,10 @@ while True:
             else:
                 print("Vous avez rien entré comme nom de produit")
                                                  
-    elif option == 2:                    
+    elif option == 2: 
+        print(" ---------- Bienvenue dans ajouter un client  ----------")
+
+                   
         while True:
             nom_client = input("Veuillez entrer le nom du client: ")
             email_client = input("Veuillez entrer l'addresse mail du client: ")
@@ -116,6 +120,7 @@ while True:
             print(listes_clients)
             
     elif option == 3:
+        print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
         
         while True:
             print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")
@@ -183,6 +188,8 @@ while True:
                 print(historiques)
                 
     elif option == 4:
+        print(" ---------- Bienvenue dans l'historique  ----------")
+
         
         historique = {}
         for historique_client in historiques:
@@ -205,4 +212,50 @@ while True:
                 sleep(0.5)
     
     elif option == 5:
-        pass
+        print(" ---------- Bienvenue dans ravitaillement  ----------")
+        sleep(1)
+        print("1- Editer le nom d'un client \n2- Editer le nom d'un produit \n3- Editer l'historique")
+        
+        choix = int(input("Veuillez fait un choix: "))
+        
+        
+        if choix == 1:
+            while True:
+                nom_client = input("Veuillez entrer le nom du client: ").lower()
+                email_client = input("Veuillez entrer l'email du client: ").lower()
+                
+                nom_existe = email_existe = False
+                for client in listes_clients:
+                    if nom_client == client["nom"] and email_client == client["email"]:
+                        nom_existe = email_existe = True
+                        break
+                    
+                if nom_existe and email_client:
+                    ancient_nom = client["nom"]
+                    nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
+                    client["nom"] = nouveau_nom
+                    print(f"Vous venez de modifier le nom de {ancient_nom} en {nouveau_nom}")
+                    sleep(3)
+                    
+                else:
+                    print("Les informations que vous avez saisit sont fausses")
+                    sleep(2)
+                    break
+                
+        elif choix == 2:
+            nom_produit = input("Veuillez entrer le nom du produit a modifier: ").lower() 
+            produit_existe = False
+            
+            for produit in listes_produits:
+                if nom_produit == produit["nom_produit"]:
+                    produit_existe = True
+                    break
+                
+            if produit_existe:
+                ancient_nom_produit = produit["nom_produit"]
+                nouveau_nom_produit = input("Veuillez entrer le nouveau nom du produit: ").lower()
+                produit["nom_produit"] = nouveau_nom_produit
+                print(f"Vous venez de modifier le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
+                sleep(3)
+            
+            

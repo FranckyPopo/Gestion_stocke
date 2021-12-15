@@ -257,5 +257,3 @@ while True:
                 produit["nom_produit"] = nouveau_nom_produit
                 print(f"Vous venez de modifier le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
                 sleep(3)
-            
-            

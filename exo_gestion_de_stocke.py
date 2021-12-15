@@ -16,7 +16,7 @@ historiques = [
     {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 18},
     {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 2},
     {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 3},
-    
+
     {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 2},
     {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 8},
     {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 12},
@@ -204,3 +204,5 @@ while True:
                 print(f"{produit} : {valeur}")
                 sleep(0.5)
     
+    elif option == 5:
+        pass

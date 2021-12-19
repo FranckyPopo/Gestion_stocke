@@ -12,7 +12,7 @@ listes_produits = [
 listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
 historiques = [
     {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 12},
-    {"email": "afrifranck2003", "produit": "Viande", "quantite_livraison": 100},
+    {"email": "afrifranck2003", "produit": "viande", "quantite_livraison": 100},
     {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 18},
     {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 2},
     {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 3},
@@ -31,7 +31,8 @@ while True:
 
     if option == 1:
       
-        while True:
+        continuer = None
+        while continuer != "":
             print(" ---------- Bienvenue dans ravitaillement  ----------")
         
             nom_produit = input("Veuillez entrer le nom du produit: ").lower()
@@ -65,27 +66,27 @@ while True:
                         quantite_total = produit["quantite_produit"] + quantite_produit
                     
                         if produit_existe:
-                            print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
                             produit["quantite_produit"] += quantite_produit
+                            print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
                             sleep(3)
                         else:
                             listes_produits.append(instance_produit)
                             print("Vous venez d'ajouter un nouveau produit")
                             sleep(3)  
                 
-                continuer = input("Voulez vous continuer ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-                if not continuer:
-                    break
+                continuer = input("Voulez vous continuer a vous ravitaillez ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+                
             else:
                 print("Vous avez rien entré comme nom de produit")
 
     elif option == 2: 
         print(" ---------- Bienvenue dans ajouter un client  ----------")
-
-                   
-        while True:
-            nom_client = input("Veuillez entrer le nom du client: ")
-            email_client = input("Veuillez entrer l'addresse mail du client: ")
+             
+        continuer = None
+        while continuer != "":
+            
+            nom_client = input("Veuillez entrer le nom du client: ").lower()
+            email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
             
             # Création de l'instance qui va representer un client
             instance_client = {"nom": nom_client, "email": email_client}
@@ -95,8 +96,8 @@ while True:
                 print("Vous venez d'ajouter un nouveau client")
                 sleep(3)
             else:
-                client_existe = False
                 
+                client_existe = False
                 for client in listes_clients:
                     if client["email"] == email_client:
                         client_existe = True
@@ -110,21 +111,17 @@ while True:
                     print("Vous venez d'ajouter un nouveau client")
                     sleep(3)
 
-            continuer = input("Voulez vous continuer a ajouter des client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-            if not continuer:
-                break
+            continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
                 
-            print(listes_clients)
-
     elif option == 3:
         print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
         
-        while True:
-            print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")
-                                 
+        continuer = None
+        while continuer != "":
+            
+            print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
             mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
             produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
-            print(produit_livraison)
             
             try:
                 quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
@@ -169,7 +166,7 @@ while True:
                     continue
                     
                 elif not quantite_existe:
-                    print("La quantité que vous avez demandé est superieur a celle qui existe,")
+                    print("La quantité que vous avez demandé est superieur a celle qui existe")
                     sleep(2)
                     continue
                 else:
@@ -179,10 +176,6 @@ while True:
                     sleep(2)
   
                 continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-                if not continuer:
-                    break
-                
-                print(historiques)
                 
     elif option == 4:
         print(" ---------- Bienvenue dans l'historique  ----------")
@@ -242,8 +235,10 @@ while True:
             continuer = input("Voulez vous editer une le nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
     
     elif option == 7:
+        
         continuer = None
         while continuer != "":
+            
             nom_client = input("Veuillez entrer le nom du client: ").lower()
             email_client = input("Veuillez entrer l'email du client: ").lower()
             
@@ -261,7 +256,6 @@ while True:
                 sleep(3)
                 
             continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
-            print(listes_clients)
     
     else:
         print("Aucun menu est attribuer a ce numero")

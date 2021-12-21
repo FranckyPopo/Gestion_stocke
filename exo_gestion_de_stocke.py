@@ -2,25 +2,27 @@ from time import sleep
 
 print("---------- Bienvenue dans le menu de gestion de stock ----------")
 
-# Création des dictionnaires qui va contenir tout les produits et clients
+# Création des dictionnaires qui va contenir tout les produits, historiques et clients
 listes_produits = [
     {"nom_produit": "orange", "quantite_produit": 10}, 
     {"nom_produit": "fraise", "quantite_produit": 10},
     {"nom_produit": "pomme", "quantite_produit": 15} 
 ]
-
-listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
+listes_clients = [
+    {"nom": "afri", "email": "afrifranck2003@gmail.com"}, 
+    {"nom": "popo", "email": "popo@gmail.com"}
+]
 historiques = [
-    {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 12},
-    {"email": "afrifranck2003", "produit": "Viande", "quantite_livraison": 100},
-    {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 18},
-    {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 2},
-    {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 3},
+    {"email": "afrifran@gmail.com", "product": "pomme", "quantity_product": 12},
+    {"email": "afrifran@gmail.com", "product": "Viande", "quantity_product": 100},
+    {"email": "afrifran@gmail.com", "product": "pomme", "quantity_product": 18},
+    {"email": "afrifran@gmail.com", "product": "orange", "quantity_product": 2},
+    {"email": "afrifran@gmail.com", "product": "orange", "quantity_product": 3},
 
-    {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 2},
-    {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 8},
-    {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 12},
-    {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 3},  
+    {"email": "popo@gmail.com", "product": "fraise", "quantity_product": 2},
+    {"email": "popo@gmail.com", "product": "fraise", "quantity_product": 8},
+    {"email": "popo@gmail.com", "product": "banane", "quantity_product": 12},
+    {"email": "popo@gmail.com", "product": "banane", "quantity_product": 3},  
 ]
 
 while True:
@@ -156,7 +158,6 @@ while True:
                         quantite_existe = True
                         break
                     
-                print(f"le variable produit existe a pour valeur: {produit_existe}")
                     
                 if not mail_existe:
                     print("L'addresse email est incorrecte")
@@ -181,9 +182,7 @@ while True:
                 continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
                 if not continuer:
                     break
-                
-                print(historiques)
-                
+                                
     elif option == 4:
         print(" ---------- Bienvenue dans l'historique  ----------")
 
@@ -265,5 +264,4 @@ while True:
     
     else:
         print("Aucun menu est attribuer a ce numero")
-        
         

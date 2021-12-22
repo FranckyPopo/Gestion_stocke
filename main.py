@@ -99,28 +99,30 @@ def ajout_client():
             nom_client = input("Veuillez entrer le nom du client: ").lower()
             email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
             
-            # Création de l'instance qui va representer un client
-            instance_client = {"nom": nom_client, "email": email_client}
-            
-            if not listes_clients:
-                listes_clients.append(instance_client)
-                print("Vous venez d'ajouter un nouveau client")
-                sleep(3)
+            if nom_client == "" or email_client == "":
+                print("Il a eu une erreur au niveau de la saisit de vôtre nom ou de l'addresse e-mail: ")
             else:
+                # Création de l'instance qui va representer un client
+                instance_client = {"nom": nom_client, "email": email_client}
                 
-                client_existe = False
-                for client in listes_clients:
-                    if client["email"] == email_client:
-                        client_existe = True
-                        break
-                
-                if client_existe:
-                    print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
-                    sleep(3)
-                else:
+                if not listes_clients:
                     listes_clients.append(instance_client)
                     print("Vous venez d'ajouter un nouveau client")
-                    sleep(3)
+                    sleep(2)
+                else:
+                    client_existe = False
+                    for client in listes_clients:
+                        if client["email"] == email_client:
+                            client_existe = True
+                            break
+                    
+                    if client_existe:
+                        print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
+                        sleep(3)
+                    else:
+                        listes_clients.append(instance_client)
+                        print("Vous venez d'ajouter un nouveau client")
+                        sleep(3)
 
             continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
      

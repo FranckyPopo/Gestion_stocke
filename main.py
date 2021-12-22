@@ -15,9 +15,8 @@ print(message_bienvenue)
   
 # Création des dictionnaires qui von contenir tout les produits et clients
 listes_produits = [
-    # {"nom_produit": "orange", "quantite_produit": 10}, 
-    # {"nom_produit": "fraise", "quantite_produit": 10},
-    # {"nom_produit": "pomme", "quantite_produit": 15} 
+    {"nom_produit": "orange", "quantite_produit": 10}, 
+
 ]
 
 listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
@@ -229,26 +228,38 @@ def affiche_stock():
             sleep(0.5)
     
 def editer_produit():
-        continuer = None
-        while continuer != "":
-            nom_produit = input("Veuillez entrer le nom du produit a editer: ").lower() 
+    continuer = None
+    while continuer != "":
+        nom_produit = input("Veuillez entrer le nom du produit a editer: ").lower() 
             
-            produit_existe = False
-            for produit in listes_produits:
-                if nom_produit == produit["nom_produit"]:
-                    produit_existe = True
-                    break
+        produit_existe = False
+        for produit in listes_produits:
+            if nom_produit == produit["nom_produit"]:
+                produit_existe = True
+                break
                 
-            if produit_existe:
-                ancient_nom_produit = produit["nom_produit"]
-                nouveau_nom_produit = input("Veuillez entrer le nouveau nom du produit: ").lower()
-                produit["nom_produit"] = nouveau_nom_produit
-                print(f"Vous venez de editer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
-                sleep(3)
-            else:
-                print("Le nom du produit que vous avez entrer est introuvable")
+        if produit_existe:
+            ancient_nom_produit = produit["nom_produit"]
+            nouveau_nom_produit = input("Voulez vous éditer le nom du produit ? Si oui entrer le nouveau nom sinon taper entrer: ").lower()
             
-            continuer = input("Voulez vous editer une le nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ") 
+            if nouveau_nom_produit != "":
+                produit["nom_produit"] = nouveau_nom_produit
+                print(f"Vous venez d'éditer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
+                sleep(3)
+            
+            try:
+                nouvelle_quantité = int(input("Voulez vous éditer la quantité  du produit ? Si oui entrer la nouvelle quantité sinon taper entrer: "))
+            except ValueError:
+                print("Vous devez entrer un nombre entier comme valeur")
+                continue
+            else:
+                if nouvelle_quantité != "":
+                    produit["quantite_produit"] = nouvelle_quantité
+
+        else:
+            print("Le nom du produit que vous avez entrer est introuvable")
+            
+        continuer = input("Voulez vous editer le nom d'un autre produit ? Si oui taper une lettre au hasrd sinon taper entrer: ") 
 
 def editer_client():
         continuer = None

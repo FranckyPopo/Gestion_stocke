@@ -14,15 +14,6 @@ message_bienvenue = """
 """
 print(message_bienvenue)
 
-# Création du dossier qui va contenir les données importante du programme
-# On récupere le chemin du fichier et on extrait le chemin du dossier
-chemin_fichier = os.path.realpath(__file__)
-chemin_repetoire = os.path.dirname(chemin_fichier)
-
-# Création du dossier
-dossier = os.path.join(chemin_repetoire, "donnees")
-os.makedirs(dossier, exist_ok=True)
-
 # Création des dictionnaires qui von contenir tout les produits et clients
 listes_produits = [
     {"nom_produit": "orange", "quantite_produit": 10}, 
@@ -50,6 +41,29 @@ Quantiter: {}
 ---------------------
 """
 
+# Création du dossier qui va contenir les données importante du programme
+# On récupere le chemin du fichier et on extrait le chemin du dossier
+chemin_fichier = os.path.realpath(__file__)
+chemin_repetoire = os.path.dirname(chemin_fichier)
+
+# Création du dossier
+dossier = os.path.join(chemin_repetoire, "donnees")
+
+if not os.path.exists(dossier):
+    os.makedirs(dossier)
+
+    # Création des trois fichier qui von stocker les informations de l'utilisateur
+    fichiers = ["liste_clients.json", "liste_produits.json", "liste_historique.json"]
+    
+    for nom_fichier in fichiers:
+        chemin_dossier = dossier + "/" + nom_fichier
+        with open(chemin_dossier, "w") as fichier:
+            pass
+
+def enregistrement_donnees(donnees):
+    chemin_dossier = dossier + "/"
+    with open(chemin_dossier, "w") as fichier:
+        pass
 
 def ravitaillement():
         continuer = None

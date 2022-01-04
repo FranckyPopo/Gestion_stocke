@@ -1,4 +1,5 @@
 from time import sleep
+import os
 
 message_bienvenue = """
 ---------- Bienvenue dans le menu de gestion de stock ----------
@@ -12,7 +13,16 @@ message_bienvenue = """
 8- Sortir
 """
 print(message_bienvenue)
-  
+
+# Création du dossier qui va contenir les données importante du programme
+# On récupere le chemin du fichier et on extrait le chemin du dossier
+chemin_fichier = os.path.realpath(__file__)
+chemin_repetoire = os.path.dirname(chemin_fichier)
+
+# Création du dossier
+dossier = os.path.join(chemin_repetoire, "donnees")
+os.makedirs(dossier, exist_ok=True)
+
 # Création des dictionnaires qui von contenir tout les produits et clients
 listes_produits = [
     {"nom_produit": "orange", "quantite_produit": 10}, 
@@ -39,6 +49,7 @@ Quantiter: {}
 
 ---------------------
 """
+
 
 def ravitaillement():
         continuer = None

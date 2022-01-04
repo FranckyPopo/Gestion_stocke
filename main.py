@@ -1,5 +1,6 @@
 from time import sleep
 import os
+import json
 
 message_bienvenue = """
 ---------- Bienvenue dans le menu de gestion de stock ----------
@@ -53,17 +54,22 @@ if not os.path.exists(dossier):
     os.makedirs(dossier)
 
     # Création des trois fichier qui von stocker les informations de l'utilisateur
-    fichiers = ["liste_clients.json", "liste_produits.json", "liste_historique.json"]
+    fichiers = ["liste_clients.json", "liste_produits.json", "liste_historiques.json"]
     
     for nom_fichier in fichiers:
         chemin_dossier = dossier + "/" + nom_fichier
         with open(chemin_dossier, "w") as fichier:
             pass
 
-def enregistrement_donnees(donnees):
-    chemin_dossier = dossier + "/"
-    with open(chemin_dossier, "w") as fichier:
-        pass
+def enregistrement_donnees(donnees, fichier):
+    chemin_dossier = dossier + "/" + fichier
+    with open(chemin_dossier, "w") as f:
+        json.dump(donnees, f)
+        
+def recuperation_donnees(fichier):
+    chemin_dossier = dossier + "/" + fichier
+    with open(chemin_dossier, "r") as f:
+        return json.load(f)
 
 def ravitaillement():
         continuer = None
@@ -324,8 +330,14 @@ OPTIONS_MENU = {
     "6": editer_produit,
     "7": editer_client,
     "8": fin_programmme
+    
+    
 }
 
-while True:
-    option = input("Veuillez choisir un option: ")
-    OPTIONS_MENU.get(option, erreur)()
+enregistrement_donnees("Francky Popo", "liste_clients.json")
+recuperation_nom = recuperation_donnees("liste_clients.json")
+print(recuperation_nom)
+
+# while True:
+#     option = input("Veuillez choisir un option: ")
+#     OPTIONS_MENU.get(option, erreur)()

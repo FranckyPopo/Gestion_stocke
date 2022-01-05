@@ -43,7 +43,7 @@ Quantiter: {}
 """
 
 # Création du dossier qui va contenir les données importante du programme
-# On récupere le chemin du fichier et on extrait le chemin du dossier
+# On récupere le chemin du fichier et on extrait le chemin du dossier parent
 chemin_fichier = os.path.realpath(__file__)
 chemin_repetoire = os.path.dirname(chemin_fichier)
 
@@ -61,12 +61,30 @@ if not os.path.exists(dossier):
         with open(chemin_dossier, "w") as fichier:
             pass
 
-def enregistrement_donnees(donnees, fichier):
+def enregistrement_donnees(donnees_enregistrer, fichier):
+    """
+    Cette fonction a pour bute d'enregistrer des données dans un fichier json     
+
+    Args:
+        donnees_enregistrer (str, int, bool, list, dict, tuple...): Ce paramétre prend tous sorte de type de données
+        fichier (str): Ce paramétre prend le chemint du fichier json qui va stocker les données
+    """
+    
     chemin_dossier = dossier + "/" + fichier
     with open(chemin_dossier, "w") as f:
-        json.dump(donnees, f)
+        json.dump(donnees_enregistrer, f)
         
 def recuperation_donnees(fichier):
+    """
+    Cette fonction a pour bute de récupérer les données dans un fichier json 
+
+    Args:
+        fichier (str): Ce paramétre prend le chemint du fichier json qui contient les données
+
+    Returns:
+        str, int, bool, list, dict, tuple...: La fonction nous retourne tout le contenue qui se trouve dans le fichier json
+    """
+    
     chemin_dossier = dossier + "/" + fichier
     with open(chemin_dossier, "r") as f:
         return json.load(f)
@@ -329,14 +347,8 @@ OPTIONS_MENU = {
     "5": affiche_stock,
     "6": editer_produit,
     "7": editer_client,
-    "8": fin_programmme
-    
-    
+    "8": fin_programmme   
 }
-
-enregistrement_donnees("Francky Popo", "liste_clients.json")
-recuperation_nom = recuperation_donnees("liste_clients.json")
-print(recuperation_nom)
 
 # while True:
 #     option = input("Veuillez choisir un option: ")

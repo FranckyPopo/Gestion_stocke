@@ -17,7 +17,7 @@ message_bienvenue = """
 4- Voir l'historique des livraisons
 5- Afficher mon stock 
 6- Editer un produit 
-7- Editer un un client
+7- Editer un client
 8- Sortir
 """
 print(message_bienvenue)
@@ -35,7 +35,6 @@ if not os.path.exists(dossier):
 
     # Création des trois fichier qui von stocker les informations de l'utilisateur
     fichiers = ["liste_clients.json", "liste_produits.json", "liste_historiques.json"]
-    
     for nom_fichier in fichiers:
         chemin_dossier = dossier + "/" + nom_fichier
         with open(chemin_dossier, "w") as fichier:
@@ -81,13 +80,12 @@ def recuperation_donnees(fichier):
                 return []
             return json.load(f)
 
-# Récupération des données dans les fichiers json
-listes_produits = recuperation_donnees("liste_produits.json")
-listes_clients = recuperation_donnees("liste_clients.json")
-historiques = recuperation_donnees("liste_historiques.json")
-print("debut:", listes_produits[0]["quantite_produit"])
-
-while True:       
+while True:
+    # Récupération des données dans les fichiers json
+    listes_produits = recuperation_donnees("liste_produits.json")
+    listes_clients = recuperation_donnees("liste_clients.json")
+    historiques = recuperation_donnees("liste_historiques.json")  
+         
     def ravitaillement():
         continuer = None
         while continuer != "":
@@ -242,13 +240,11 @@ while True:
         
     def historique():
         print(" ---------- Bienvenue dans l'historique  ----------")
-
-        
+  
         historique = {}
         for historique_client in historiques:
             try:
-                historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]
-                
+                historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]                
             except KeyError:
                 try:
                     historique[historique_client["email"]].setdefault(historique_client["produit"], historique_client["quantite_livraison"])
@@ -289,6 +285,7 @@ while True:
                 
                 if nouveau_nom_produit != "":
                     produit["nom_produit"] = nouveau_nom_produit
+                    enregistrement_donnees(listes_produits, "liste_produits.json")
                     print(f"Vous venez d'éditer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
                     sleep(3)
                 
@@ -300,33 +297,35 @@ while True:
                 else:
                     if nouvelle_quantité != "":
                         produit["quantite_produit"] = nouvelle_quantité
+                        enregistrement_donnees(listes_produits, "liste_produits.json")
 
             else:
                 print("Le nom du produit que vous avez entrer est introuvable")
+                sleep(2)
                 
             continuer = input("Voulez vous editer le nom d'un autre produit ? Si oui taper une lettre au hasrd sinon taper entrer: ") 
 
     def editer_client():
-            continuer = None
-            while continuer != "":
+        continuer = None
+        while continuer != "":  
+            nom_client = input("Veuillez entrer le nom du client: ").lower()
+            email_client = input("Veuillez entrer l'email du client: ").lower()
+            
+            infos_existe = email_existe = False
+            for client in listes_clients:
+                if nom_client == client["nom"] and email_client == client["email"]:
+                    infos_existe = email_existe = True
+                    break
                 
-                nom_client = input("Veuillez entrer le nom du client: ").lower()
-                email_client = input("Veuillez entrer l'email du client: ").lower()
+            if infos_existe and email_client:
+                ancient_nom = client["nom"]
+                nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
+                client["nom"] = nouveau_nom
+                enregistrement_donnees(listes_clients, "liste_clients.json")
+                print(f"Vous venez de editer le nom de {ancient_nom} en {nouveau_nom}")
+                sleep(3)
                 
-                infos_existe = email_existe = False
-                for client in listes_clients:
-                    if nom_client == client["nom"] and email_client == client["email"]:
-                        infos_existe = email_existe = True
-                        break
-                    
-                if infos_existe and email_client:
-                    ancient_nom = client["nom"]
-                    nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
-                    client["nom"] = nouveau_nom
-                    print(f"Vous venez de editer le nom de {ancient_nom} en {nouveau_nom}")
-                    sleep(3)
-                    
-                continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
+            continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
         
     def fin_programmme():
         print("Fermeture du programme")

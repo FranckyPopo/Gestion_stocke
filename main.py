@@ -85,6 +85,7 @@ def recuperation_donnees(fichier):
 listes_produits = recuperation_donnees("liste_produits.json")
 listes_clients = recuperation_donnees("liste_clients.json")
 historiques = recuperation_donnees("liste_historiques.json")
+print("debut:", listes_produits[0]["quantite_produit"])
 
 while True:       
     def ravitaillement():
@@ -113,8 +114,8 @@ while True:
                         if not listes_produits:
                             listes_produits.append(instance_produit)
                             print("Vous venez d'ajouter un nouveau produit")
-                            sleep(2)  
                             enregistrement_donnees(listes_produits, "liste_produits.json")
+                            sleep(2)  
                         else:
                             produit_existe = False
                             # On vérifie que le produit existe
@@ -143,47 +144,48 @@ while True:
                 print("Vous avez rien entré comme nom de produit")
 
     def ajout_client():
-            print(" ---------- Bienvenue dans ajouter un client  ----------")
+        print(" ---------- Bienvenue dans ajouter un client  ----------")
+            
+        continuer = None
+        while continuer != "":
+            
+            nom_client = input("Veuillez entrer le nom du client: ").lower()
+            email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
+            
+            if nom_client == "" or email_client == "":
+                print("Il a eu une erreur au niveau de la saisi de vôtre nom ou de l'addresse e-mail")
+            else:
+                # Création de l'instance qui va representer un client
+                instance_client = {"nom": nom_client, "email": email_client}
                 
-            continuer = None
-            while continuer != "":
-                
-                nom_client = input("Veuillez entrer le nom du client: ").lower()
-                email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
-                
-                if nom_client == "" or email_client == "":
-                    print("Il a eu une erreur au niveau de la saisit de vôtre nom ou de l'addresse e-mail: ")
+                if not listes_clients:
+                    listes_clients.append(instance_client)
+                    print("Vous venez d'ajouter un nouveau client")
+                    enregistrement_donnees(listes_clients, "liste_clients.json")
+                    sleep(2)
                 else:
-                    # Création de l'instance qui va representer un client
-                    instance_client = {"nom": nom_client, "email": email_client}
+                    client_existe = False
+                    for client in listes_clients:
+                        if client["email"] == email_client:
+                            client_existe = True
+                            break
                     
-                    if not listes_clients:
+                    if client_existe:
+                        print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
+                        sleep(3)
+                    else:
                         listes_clients.append(instance_client)
+                        enregistrement_donnees(listes_clients, "liste_clients.json")
                         print("Vous venez d'ajouter un nouveau client")
                         sleep(2)
-                    else:
-                        client_existe = False
-                        for client in listes_clients:
-                            if client["email"] == email_client:
-                                client_existe = True
-                                break
-                        
-                        if client_existe:
-                            print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
-                            sleep(3)
-                        else:
-                            listes_clients.append(instance_client)
-                            print("Vous venez d'ajouter un nouveau client")
-                            sleep(3)
 
-                continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+            continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
         
     def livraison():
             print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
             
             continuer = None
             while continuer != "":
-                
                 print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
                 mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
                 produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
@@ -201,50 +203,40 @@ while True:
                     }    
             
                     # On verifie que le mail, produit et la quantité demandé existe
-                    mail_existe = produit_existe = quantite_existe = False
+                    mail_existe = produit_existe = False
                     
                     for mail_client in listes_clients:
                         if mail_client["email"] == mail_livraison:
                             mail_existe = True
                             break
                         
-                    for produits in listes_produits:
-                        if produits["nom_produit"] == produit_livraison:
+                    for produit in listes_produits:
+                        if produit["nom_produit"] == produit_livraison:
                             produit_existe = True
                             break
-                    
-                    for quantite in listes_produits:    
-                        if quantite["quantite_produit"] >= quantite_livraison:
-                            quantite_existe = True
-                            break
-                        
-                    print(f"le variable produit existe a pour valeur: {produit_existe}")
-                        
+                             
+                    quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
+                                                
                     if not mail_existe:
                         print("L'addresse email est incorrecte")
-                        sleep(2)
-                        continue
+                        sleep(1)
 
                     elif not produit_existe:
                         print("Le produit que vous avez demandé n'existe pas")
-                        sleep(2)
-                        continue
+                        sleep(1)
                         
                     elif not quantite_existe:
-                        print("La quantité que vous avez demandé est superieur a celle qui existe")
-                        sleep(2)
-                        continue
+                        print("La quantité que vous avez demandé est superieur a celle qui existe en stock")
+                        sleep(1.5)
+                    
                     else:
-                        
-                        # On verifie que la quantité a livrer existe
-                        if produits["quantite_produit"] > 0:
-                            historiques.append(historique_livraison)
-                            produits["quantite_produit"] -= quantite_livraison
-                            print("Vous venez d'effectuer un livraison")
-                            sleep(2)
-                        else:
-                            print("La quantité que vous avez démander est suppérieur a celle en stock")
-                            sleep(2)
+                        print(listes_produits[0]["quantite_produit"])
+                        historiques.append(historique_livraison)
+                        produit["quantite_produit"] -= quantite_livraison
+                        enregistrement_donnees(historiques, "liste_historiques.json")
+                        enregistrement_donnees(listes_produits, "liste_produits.json")
+                        print("Vous venez d'effectuer une livraison")
+                        sleep(2)
     
                     continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
         

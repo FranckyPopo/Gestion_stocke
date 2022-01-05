@@ -71,8 +71,13 @@ def enregistrement_donnees(donnees_enregistrer, fichier):
     """
     
     chemin_dossier = dossier + "/" + fichier
-    with open(chemin_dossier, "w") as f:
-        json.dump(donnees_enregistrer, f)
+    try:
+        os.path.getsize(chemin_dossier)
+    except OSError:
+        print("Chemin introuvable ! Veuillez vérifiez le nom du fichier")
+    else:     
+        with open(chemin_dossier, "w") as f:
+            json.dump(donnees_enregistrer, f)
         
 def recuperation_donnees(fichier):
     """
@@ -86,8 +91,15 @@ def recuperation_donnees(fichier):
     """
     
     chemin_dossier = dossier + "/" + fichier
-    with open(chemin_dossier, "r") as f:
-        return json.load(f)
+    try:
+        os.path.getsize(chemin_dossier)
+    except OSError:
+        print("Chemin introuvable ! Veuillez vérifiez le nom du fichier")
+    else:
+        with open(chemin_dossier, "r") as f:
+            if os.path.getsize(chemin_dossier) == 0:
+                return []
+            return json.load(f)
 
 def ravitaillement():
         continuer = None

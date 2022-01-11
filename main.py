@@ -13,27 +13,6 @@ message_bienvenue = """
 7- Editer un un client
 8- Sortir
 """
-print(message_bienvenue)
-
-# Création des dictionnaires qui von contenir tout les produits et clients
-listes_produits = [
-    {"nom_produit": "orange", "quantite_produit": 10}, 
-
-]
-
-listes_clients = [{"nom": "afri", "email": "afrifranck2003@gmail.com"}, {"nom": "popo", "email": "popo@gmail.com"}]
-historiques = [
-    # {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 12},
-    # {"email": "afrifranck2003", "produit": "viande", "quantite_livraison": 100},
-    # {"email": "afrifranck2003", "produit": "pomme", "quantite_livraison": 18},
-    # {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 2},
-    # {"email": "afrifranck2003", "produit": "orange", "quantite_livraison": 3},
-
-    # {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 2},
-    # {"email": "popo@gmail.com", "produit": "fraise", "quantite_livraison": 8},
-    # {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 12},
-    # {"email": "popo@gmail.com", "produit": "banane", "quantite_livraison": 3},  
-]
 
 stock_client = """
 Nom produit: {}
@@ -41,6 +20,12 @@ Quantiter: {}
 
 ---------------------
 """
+print(message_bienvenue)
+
+# Récupération des données
+listes_produits = recuperation_donnees("liste_produits.json")
+listes_clients = recuperation_donnees("liste_clients.json")
+historiques = recuperation_donnees("liste_historiques.json")
 
 # Création du dossier qui va contenir les données importante du programme
 # On récupere le chemin du fichier et on extrait le chemin du dossier
@@ -330,13 +315,8 @@ OPTIONS_MENU = {
     "6": editer_produit,
     "7": editer_client,
     "8": fin_programmme
-    
-    
 }
 
-enregistrement_donnees("Francky Popo", "liste_clients.json")
-recuperation_nom = recuperation_donnees("liste_clients.json")
-print(recuperation_nom)
 
 # while True:
 #     option = input("Veuillez choisir un option: ")

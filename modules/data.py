@@ -34,6 +34,8 @@ def get_data(path_folder: str, name_file: str):
     Returns:
         [list]: Rétourne les données du fichier sinon une liste vide si le fichier ne contient rien
     """
+    
+    file = path_folder + "/" + name_file + ".json"
 
     if not os.path.isfile(file) or os.path.getsize(file) == 0:
         return [] 

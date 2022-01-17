@@ -4,13 +4,13 @@ from time import sleep
 from . import data
 
 dossier_actuel = os.getcwd()
-dossier_donnees = os.path.join(dossier_actuel, "donnees")
+dossier_donnees = os.path.join(dossier_actuel, "data")
 
 # Récuperation des différentes données
 recuperation_clients =  data.get_data(dossier_donnees, "liste_clients")
-recuration_produits = data.get_data(dossier_donnees, "liste_produits")
+recuration_produits = data.get_data(dossier_donnees, "list_product")
 recuration_historiques = data.get_data(dossier_donnees, "liste_historiques")
-
+print(recuration_produits)
 def ravitaillement():
     continuer = None
     while continuer != "":
@@ -37,8 +37,8 @@ def ravitaillement():
                     if not recuration_produits:
                         recuration_produits.append(instance_produit)
                         print("Vous venez d'ajouter un nouveau produit")
-                        #data_recording(recuration_produits, dossier_donnees, "liste_produits")
-                        sleep(2)  
+                        data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
+                        sleep(2)
                     else:
                         produit_existe = False
                         # On vérifie que le produit existe
@@ -59,7 +59,7 @@ def ravitaillement():
                             sleep(3)  
                             
                     # On enregistre la liste des produits
-                    data.recording_data(recuration_produits, dossier_actuel, "liste_produits", "donnees")
+                    data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
             
             continuer = input("Voulez vous continuer a vous ravitaillez ? Si oui taper une lettre au hasard, sinon taper entrer: ")
             

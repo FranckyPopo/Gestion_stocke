@@ -241,7 +241,7 @@ def editer_client():
         email_client = input("Veuillez entrer l'email du client: ").lower()
         
         infos_existe = email_existe = False
-        for client in listes_clients:
+        for client in recuperation_clients:
             if nom_client == client["nom"] and email_client == client["email"]:
                 infos_existe = email_existe = True
                 break
@@ -250,15 +250,11 @@ def editer_client():
             ancient_nom = client["nom"]
             nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
             client["nom"] = nouveau_nom
-            enregistrement_donnees(listes_clients, "liste_clients.json")
+            data.recording_data(recuperation_clients, dossier_actuel, "data", "list_clients")
             print(f"Vous venez de editer le nom de {ancient_nom} en {nouveau_nom}")
             sleep(3)
             
         continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
     
 def fin_programmme():
-    print("Fermeture du programme")
-    exit()
-
-def erreur():
-    print("Erreur")
+    pass

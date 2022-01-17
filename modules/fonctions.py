@@ -163,8 +163,14 @@ def livraison():
 def historique():
     print(" ---------- Bienvenue dans l'historique  ----------")
 
+    template_historique = """
+    {}
+    {}: {}
+    -------------------------
+    """
+
     historique = {}
-    for historique_client in historiques:
+    for historique_client in recuration_historiques:
         try:
             historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]                
         except KeyError:
@@ -174,12 +180,9 @@ def historique():
                 historique.setdefault(historique_client["email"], {historique_client["produit"]: historique_client["quantite_livraison"]})
     
     # Cette boucle va nous permetre d'afficher les produits
-    for client in historique:
-        print(f"{client} ")
-        sleep(0.5)
-            
+    for client in historique:    
         for produit, valeur in historique[client].items():
-            print(f"{produit} : {valeur}")
+            print(template_historique.format(client, produit, valeur))
             sleep(0.5)
 
 def affiche_stock():

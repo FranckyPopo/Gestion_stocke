@@ -7,10 +7,10 @@ dossier_actuel = os.getcwd()
 dossier_donnees = os.path.join(dossier_actuel, "data")
 
 # Récuperation des différentes données
-recuperation_clients =  data.get_data(dossier_donnees, "liste_clients")
+recuperation_clients =  data.get_data(dossier_donnees, "list_clients")
 recuration_produits = data.get_data(dossier_donnees, "list_product")
-recuration_historiques = data.get_data(dossier_donnees, "liste_historiques")
-print(recuration_produits)
+recuration_historiques = data.get_data(dossier_donnees, "list_history")
+
 def ravitaillement():
     continuer = None
     while continuer != "":
@@ -62,199 +62,197 @@ def ravitaillement():
                     data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
             
             continuer = input("Voulez vous continuer a vous ravitaillez ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-            
         else:
              print("Vous avez rien entré comme nom de produit")
 
-# def ajout_client():
-#     print(" ---------- Bienvenue dans ajouter un client  ----------")
+def ajout_client():
+    print(" ---------- Bienvenue dans ajouter un client  ----------")
         
-#     continuer = None
-#     while continuer != "":
+    continuer = None
+    while continuer != "":
+        nom_client = input("Veuillez entrer le nom du client: ").lower()
+        email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
         
-#         nom_client = input("Veuillez entrer le nom du client: ").lower()
-#         email_client = input("Veuillez entrer l'addresse mail du client: ").lower()
-        
-#         if nom_client == "" or email_client == "":
-#             print("Il a eu une erreur au niveau de la saisi de vôtre nom ou de l'addresse e-mail")
-#         else:
-#             # Création de l'instance qui va representer un client
-#             instance_client = {"nom": nom_client, "email": email_client}
+        if not nom_client or not email_client:
+            print("Il a eu une erreur au niveau de la saisi de vôtre nom ou de l'addresse e-mail")
+        else:
+            # Création de l'instance qui va representer un client
+            instance_client = {"nom": nom_client, "email": email_client}
             
-#             if not listes_clients:
-#                 listes_clients.append(instance_client)
-#                 print("Vous venez d'ajouter un nouveau client")
-#                 enregistrement_donnees(listes_clients, "liste_clients.json")
-#                 sleep(2)
-#             else:
-#                 client_existe = False
-#                 for client in listes_clients:
-#                     if client["email"] == email_client:
-#                         client_existe = True
-#                         break
+            if not recuperation_clients:
+                recuperation_clients.append(instance_client)
+                print("Vous venez d'ajouter un nouveau client")
+                sleep(2)
+            else:
+                client_existe = False
+                for client in recuperation_clients:
+                    if client["email"] == email_client:
+                        client_existe = True
+                        break
                 
-#                 if client_existe:
-#                     print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
-#                     sleep(3)
-#                 else:
-#                     listes_clients.append(instance_client)
-#                     enregistrement_donnees(listes_clients, "liste_clients.json")
-#                     print("Vous venez d'ajouter un nouveau client")
-#                     sleep(2)
-
-#         continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-    
-# def livraison():
-#         print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
-        
-#         continuer = None
-#         while continuer != "":
-#             print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
-#             mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
-#             produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
-            
-#             try:
-#                 quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
-#             except ValueError:
-#                 print("Veuillez saisir un nombre entier")
-#                 sleep(2)
-#             else:
-#                 historique_livraison = {
-#                     "email": mail_livraison, 
-#                     "produit": produit_livraison, 
-#                     "quantite_livraison": quantite_livraison
-#                 }    
-        
-#                 # On verifie que le mail, produit et la quantité demandé existe
-#                 mail_existe = produit_existe = False
-                
-#                 for mail_client in listes_clients:
-#                     if mail_client["email"] == mail_livraison:
-#                         mail_existe = True
-#                         break
+                if client_existe:
+                    print("Vous ne pouvez pas utiliser cette addresse mail cas un clients a déjà été enregistré avec cette addresse mail")
+                    sleep(3)
+                else:
+                    recuperation_clients.append(instance_client)
+                    print("Vous venez d'ajouter un nouveau client")
+                    sleep(2)
                     
-#                 for produit in listes_produits:
-#                     if produit["nom_produit"] == produit_livraison:
-#                         produit_existe = True
-#                         break
+            data.recording_data(recuperation_clients, dossier_actuel, "data", "list_clients")
+
+        continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+    
+def livraison():
+        print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
+        
+        continuer = None
+        while continuer != "":
+            print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
+            mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
+            produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
+            
+            try:
+                quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
+            except ValueError:
+                print("Veuillez saisir un nombre entier")
+                sleep(2)
+            else:
+                historique_livraison = {
+                    "email": mail_livraison, 
+                    "produit": produit_livraison, 
+                    "quantite_livraison": quantite_livraison
+                }    
+        
+                # On verifie que le mail, produit et la quantité demandé existe
+                mail_existe = produit_existe = False
+                
+                for mail_client in listes_clients:
+                    if mail_client["email"] == mail_livraison:
+                        mail_existe = True
+                        break
+                    
+                for produit in listes_produits:
+                    if produit["nom_produit"] == produit_livraison:
+                        produit_existe = True
+                        break
                             
-#                 quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
+                quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
                                             
-#                 if not mail_existe:
-#                     print("L'addresse email est incorrecte")
-#                     sleep(1)
+                if not mail_existe:
+                    print("L'addresse email est incorrecte")
+                    sleep(1)
 
-#                 elif not produit_existe:
-#                     print("Le produit que vous avez demandé n'existe pas")
-#                     sleep(1)
+                elif not produit_existe:
+                    print("Le produit que vous avez demandé n'existe pas")
+                    sleep(1)
                     
-#                 elif not quantite_existe:
-#                     print("La quantité que vous avez demandé est superieur a celle qui existe en stock")
-#                     sleep(1.5)
+                elif not quantite_existe:
+                    print("La quantité que vous avez demandé est superieur a celle qui existe en stock")
+                    sleep(1.5)
                 
-#                 else:
-#                     print(listes_produits[0]["quantite_produit"])
-#                     historiques.append(historique_livraison)
-#                     produit["quantite_produit"] -= quantite_livraison
-#                     enregistrement_donnees(historiques, "liste_historiques.json")
-#                     enregistrement_donnees(listes_produits, "liste_produits.json")
-#                     print("Vous venez d'effectuer une livraison")
-#                     sleep(2)
+                else:
+                    print(listes_produits[0]["quantite_produit"])
+                    historiques.append(historique_livraison)
+                    produit["quantite_produit"] -= quantite_livraison
+                    enregistrement_donnees(historiques, "liste_historiques.json")
+                    enregistrement_donnees(listes_produits, "liste_produits.json")
+                    print("Vous venez d'effectuer une livraison")
+                    sleep(2)
 
-#                 continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+                continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
     
-# def historique():
-#     print(" ---------- Bienvenue dans l'historique  ----------")
+def historique():
+    print(" ---------- Bienvenue dans l'historique  ----------")
 
-#     historique = {}
-#     for historique_client in historiques:
-#         try:
-#             historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]                
-#         except KeyError:
-#             try:
-#                 historique[historique_client["email"]].setdefault(historique_client["produit"], historique_client["quantite_livraison"])
-#             except KeyError:
-#                 historique.setdefault(historique_client["email"], {historique_client["produit"]: historique_client["quantite_livraison"]})
+    historique = {}
+    for historique_client in historiques:
+        try:
+            historique[historique_client["email"]][historique_client["produit"]] += historique_client["quantite_livraison"]                
+        except KeyError:
+            try:
+                historique[historique_client["email"]].setdefault(historique_client["produit"], historique_client["quantite_livraison"])
+            except KeyError:
+                historique.setdefault(historique_client["email"], {historique_client["produit"]: historique_client["quantite_livraison"]})
     
-#     # Cette boucle va nous permetre d'afficher les produits
-#     for client in historique:
-#         print(f"{client} ")
-#         sleep(0.5)
+    # Cette boucle va nous permetre d'afficher les produits
+    for client in historique:
+        print(f"{client} ")
+        sleep(0.5)
             
-#         for produit, valeur in historique[client].items():
-#             print(f"{produit} : {valeur}")
-#             sleep(0.5)
+        for produit, valeur in historique[client].items():
+            print(f"{produit} : {valeur}")
+            sleep(0.5)
 
-# def affiche_stock():
-#         print("Les différent stock de produit sont: ")
-#         sleep(0.5)
+def affiche_stock():
+        print("Les différent stock de produit sont: ")
+        sleep(0.5)
 
-#         for produit in listes_produits:
-#             print(stock_client.format(produit["nom_produit"], produit["quantite_produit"]))
-#             sleep(0.5)
+        for produit in listes_produits:
+            print(stock_client.format(produit["nom_produit"], produit["quantite_produit"]))
+            sleep(0.5)
     
-# def editer_produit():
-#     continuer = None
-#     while continuer != "":
-#         nom_produit = input("Veuillez entrer le nom du produit a editer: ").lower() 
+def editer_produit():
+    continuer = None
+    while continuer != "":
+        nom_produit = input("Veuillez entrer le nom du produit a editer: ").lower() 
             
-#         produit_existe = False
-#         for produit in listes_produits:
-#             if nom_produit == produit["nom_produit"]:
-#                 produit_existe = True
-#                 break
+        produit_existe = False
+        for produit in listes_produits:
+            if nom_produit == produit["nom_produit"]:
+                produit_existe = True
+                break
                 
-#         if produit_existe:
-#             ancient_nom_produit = produit["nom_produit"]
-#             nouveau_nom_produit = input("Voulez vous éditer le nom du produit ? Si oui entrer le nouveau nom sinon taper entrer: ").lower()
+        if produit_existe:
+            ancient_nom_produit = produit["nom_produit"]
+            nouveau_nom_produit = input("Voulez vous éditer le nom du produit ? Si oui entrer le nouveau nom sinon taper entrer: ").lower()
             
-#             if nouveau_nom_produit != "":
-#                 produit["nom_produit"] = nouveau_nom_produit
-#                 enregistrement_donnees(listes_produits, "liste_produits.json")
-#                 print(f"Vous venez d'éditer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
-#                 sleep(3)
+            if nouveau_nom_produit != "":
+                produit["nom_produit"] = nouveau_nom_produit
+                enregistrement_donnees(listes_produits, "liste_produits.json")
+                print(f"Vous venez d'éditer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
+                sleep(3)
             
-#             try:
-#                 nouvelle_quantité = int(input("Voulez vous éditer la quantité  du produit ? Si oui entrer la nouvelle quantité sinon taper entrer: "))
-#             except ValueError:
-#                 print("Vous devez entrer un nombre entier comme valeur")
-#                 continue
-#             else:
-#                 if nouvelle_quantité != "":
-#                     produit["quantite_produit"] = nouvelle_quantité
-#                     enregistrement_donnees(listes_produits, "liste_produits.json")
+            try:
+                nouvelle_quantité = int(input("Voulez vous éditer la quantité  du produit ? Si oui entrer la nouvelle quantité sinon taper entrer: "))
+            except ValueError:
+                print("Vous devez entrer un nombre entier comme valeur")
+                continue
+            else:
+                if nouvelle_quantité != "":
+                    produit["quantite_produit"] = nouvelle_quantité
+                    enregistrement_donnees(listes_produits, "liste_produits.json")
 
-#         else:
-#             print("Le nom du produit que vous avez entrer est introuvable")
-#             sleep(2)
+        else:
+            print("Le nom du produit que vous avez entrer est introuvable")
+            sleep(2)
             
-#         continuer = input("Voulez vous editer le nom d'un autre produit ? Si oui taper une lettre au hasrd sinon taper entrer: ") 
+        continuer = input("Voulez vous editer le nom d'un autre produit ? Si oui taper une lettre au hasrd sinon taper entrer: ") 
 
-# def editer_client():
-#     continuer = None
-#     while continuer != "":  
-#         nom_client = input("Veuillez entrer le nom du client: ").lower()
-#         email_client = input("Veuillez entrer l'email du client: ").lower()
+def editer_client():
+    continuer = None
+    while continuer != "":  
+        nom_client = input("Veuillez entrer le nom du client: ").lower()
+        email_client = input("Veuillez entrer l'email du client: ").lower()
         
-#         infos_existe = email_existe = False
-#         for client in listes_clients:
-#             if nom_client == client["nom"] and email_client == client["email"]:
-#                 infos_existe = email_existe = True
-#                 break
+        infos_existe = email_existe = False
+        for client in listes_clients:
+            if nom_client == client["nom"] and email_client == client["email"]:
+                infos_existe = email_existe = True
+                break
             
-#         if infos_existe and email_client:
-#             ancient_nom = client["nom"]
-#             nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
-#             client["nom"] = nouveau_nom
-#             enregistrement_donnees(listes_clients, "liste_clients.json")
-#             print(f"Vous venez de editer le nom de {ancient_nom} en {nouveau_nom}")
-#             sleep(3)
+        if infos_existe and email_client:
+            ancient_nom = client["nom"]
+            nouveau_nom = input("Veuillez entrer le nouveau nom: ").lower()
+            client["nom"] = nouveau_nom
+            enregistrement_donnees(listes_clients, "liste_clients.json")
+            print(f"Vous venez de editer le nom de {ancient_nom} en {nouveau_nom}")
+            sleep(3)
             
-#         continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
+        continuer = input("Voulez vous editer un autres nom d'un autre produit ? Si oui taper entrer sinon taper une lettre au hasrd: ")
     
-# def fin_programmme():
-#     print("Fermeture du programme")
-#     exit()
+def fin_programmme():
+    print("Fermeture du programme")
+    exit()
 
-# def erreur():
-#     print("Erreur")
+def erreur():
+    print("Erreur")

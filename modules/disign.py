@@ -1,4 +1,8 @@
 disign_bouton = {
     "width": "25",
-    "bg": "blue"
+    "bg": "#87CEED"
+}
+
+padding_bouton = {
+    "pady": 8
 }

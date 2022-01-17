@@ -204,7 +204,7 @@ def editer_produit():
         nom_produit = input("Veuillez entrer le nom du produit a editer: ").lower() 
             
         produit_existe = False
-        for produit in listes_produits:
+        for produit in recuration_produits:
             if nom_produit == produit["nom_produit"]:
                 produit_existe = True
                 break
@@ -215,7 +215,7 @@ def editer_produit():
             
             if nouveau_nom_produit != "":
                 produit["nom_produit"] = nouveau_nom_produit
-                enregistrement_donnees(listes_produits, "liste_produits.json")
+                data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
                 print(f"Vous venez d'éditer le nom du produit {ancient_nom_produit} en {nouveau_nom_produit}")
                 sleep(3)
             
@@ -225,9 +225,8 @@ def editer_produit():
                 print("Vous devez entrer un nombre entier comme valeur")
                 continue
             else:
-                if nouvelle_quantité != "":
-                    produit["quantite_produit"] = nouvelle_quantité
-                    enregistrement_donnees(listes_produits, "liste_produits.json")
+                produit["quantite_produit"] = nouvelle_quantité
+            data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
 
         else:
             print("Le nom du produit que vous avez entrer est introuvable")

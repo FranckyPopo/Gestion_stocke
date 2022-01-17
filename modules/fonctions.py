@@ -115,7 +115,7 @@ def livraison():
                 quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
             except ValueError:
                 print("Veuillez saisir un nombre entier")
-                sleep(2)
+                sleep(1)
             else:
                 historique_livraison = {
                     "email": mail_livraison, 
@@ -126,12 +126,12 @@ def livraison():
                 # On verifie que le mail, produit et la quantité demandé existe
                 mail_existe = produit_existe = False
                 
-                for mail_client in listes_clients:
+                for mail_client in recuperation_clients:
                     if mail_client["email"] == mail_livraison:
                         mail_existe = True
                         break
                     
-                for produit in listes_produits:
+                for produit in recuration_produits:
                     if produit["nom_produit"] == produit_livraison:
                         produit_existe = True
                         break
@@ -151,11 +151,10 @@ def livraison():
                     sleep(1.5)
                 
                 else:
-                    print(listes_produits[0]["quantite_produit"])
-                    historiques.append(historique_livraison)
+                    recuration_historiques.append(historique_livraison)
                     produit["quantite_produit"] -= quantite_livraison
-                    enregistrement_donnees(historiques, "liste_historiques.json")
-                    enregistrement_donnees(listes_produits, "liste_produits.json")
+                    data.recording_data(recuration_historiques, dossier_actuel, "data", "list_history")
+                    data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
                     print("Vous venez d'effectuer une livraison")
                     sleep(2)
 

@@ -186,13 +186,18 @@ def historique():
             sleep(0.5)
 
 def affiche_stock():
-        print("Les différent stock de produit sont: ")
+    
+    template_stocke = """
+    {}: {}
+    ---------------------
+    """
+    print("Les différent stock de produit sont: ")
+    sleep(0.5)
+
+    for produit in recuration_produits:
+        print(template_stocke.format(produit["nom_produit"], produit["quantite_produit"]))
         sleep(0.5)
 
-        for produit in listes_produits:
-            print(stock_client.format(produit["nom_produit"], produit["quantite_produit"]))
-            sleep(0.5)
-    
 def editer_produit():
     continuer = None
     while continuer != "":

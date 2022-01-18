@@ -1,6 +1,8 @@
 import os
 import json
+import tkinter
 from time import sleep
+from modules import disign
 from . import data
 
 dossier_actuel = os.getcwd()
@@ -12,11 +14,32 @@ recuration_produits = data.get_data(dossier_donnees, "list_product")
 recuration_historiques = data.get_data(dossier_donnees, "list_history")
 
 def ravitaillement():
+    window = tkinter.Tk()
+    window.geometry("720x480")
+    window.minsize(480, 360)
+    
+    # Contenue frame gauche
+    frame_gauche = tkinter.Frame(window)
+    
+    label_produit = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit", **disign.style_label).grid(row=0, column=0)
+    entre_nom_produit = tkinter.Entry(frame_gauche).grid(row=1, column=0, padx=10)
+    
+    label_quantite = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité", **disign.style_label).grid(row=2, column=0)
+    entrer_quantite = tkinter.Entry(frame_gauche, **disign.style_entrer).grid(row=3, column=0)
+    
+    bnt_enregistrer = tkinter.Button(frame_gauche, text="Enregistrer", **disign.disign_valider_acceuil).grid(row=4, column=0, pady=10)
+    bnt_accueil = tkinter.Button(frame_gauche, text="Retour a la page d'acceuil", **disign.disign_valider_acceuil).grid(row=5, column=0)
+    frame_gauche.pack()
+    
+
+    window.mainloop()
+
+    
     continuer = None
     while continuer != "":
         print(" ---------- Bienvenue dans ravitaillement  ----------")
     
-        nom_produit = input("Veuillez entrer le nom du produit: ").lower()
+        nom_produit = tkinter.Entry()
         if nom_produit:
         
             # On verifie que l'utilisateur rentre bien un chiffre

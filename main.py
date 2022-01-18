@@ -6,11 +6,12 @@ windown.geometry("480x400")
 windown.minsize(480, 360)
 windown.title("GESTION DE STOCKS")
 windown["bg"] = "#DEDEE1"
+
 frame = tkinter.Frame(windown, bg="#DEDEE1")
 
 font_bouton = tkinter.font.Font(family="Arial", size="12", weight="bold")
 
-bnt_ravitalement = tkinter.Button(frame, text="Ravitailement", **disign.disign_bouton)
+bnt_ravitalement = tkinter.Button(frame, text="Ravitailement", command=fonctions.ravitaillement, **disign.disign_bouton)
 bnt_ravitalement["font"] = font_bouton
 bnt_ravitalement.pack(disign.padding_bouton)
 

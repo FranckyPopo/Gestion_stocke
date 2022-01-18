@@ -1,15 +1,23 @@
 #C'est la couleur de fond de la page.
-from turtle import width
-
-
 page_background = {
     "bg": "#808080"
 }
 
-btn_style = {
-    "font": "Roboto 20",
-    "bg": "skyblue",
-    "fg": "black",
-    "width" : "10",
-    "height": "2",
+header= {
+    "text": "Afficher Le Stock", 
+    "bg":"skyblue",
+    "highlightbackground":"black","highlightthickness": "3",
+    "font":"Roboto 20",
 }
+
+header_style = {
+    "pady":"30", 
+    "ipadx":"300",
+    "ipady":"10"
+}
+
+frame ={
+    "highlightbackground":"black", 
+    "highlightthickness": "3"
+}
+

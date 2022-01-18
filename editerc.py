@@ -7,11 +7,10 @@ editerc = Tk()
 editerc.title("Gestion Des Stock")
 editerc.configure(bg="#808080")
 
-frame = LabelFrame(editerc, text="Editer Un Client", bg="white",font="Roboto 20", pady=250, padx=150)
-frame.pack(padx=50, pady=100)
+heading = Label(editerc, text= "Editer Un Client", bg="skyblue", highlightbackground="black", highlightthickness= 3, font="Roboto 20").pack(pady=50, ipadx=300, ipady=10)
 
+frame = Frame(editerc, width=100, height=100, highlightbackground="black", highlightthickness= 3)
+frame.pack(pady=50, ipadx=300, ipady=300)
 
-
-btn = Button(frame, text="Retour à la page d'accueil", relief=FLAT, bg="skyblue").grid(row=5, column=1)
 
 editerc.mainloop()

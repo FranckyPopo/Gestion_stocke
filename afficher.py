@@ -11,8 +11,8 @@ afficher.configure(bg="#808080")
 
 heading = Label(afficher, text= "Afficher Le Stock", bg="skyblue",highlightbackground="black", highlightthickness= 3, font="Roboto 20").pack(pady=50, ipadx=300, ipady=10)
 
-frame = Frame(afficher, width=100, height=100, highlightbackground="black", highlightthickness= 3)
-frame.pack(pady=50, ipadx=300, ipady=300)
+frame = Frame(afficher, highlightbackground="black", highlightthickness= 3)
+frame.pack(pady=50, ipadx=100, ipady=200)
 
 liste = Label(frame, text="La liste Des Produits", font="Roboto 20",).grid(row=0, column=0)
 

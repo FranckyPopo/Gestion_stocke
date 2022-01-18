@@ -1,0 +1,14 @@
+[
+    {
+        "nom_produit": "oui",
+        "quantite_produit": 11
+    },
+    {
+        "nom_produit": "ple",
+        "quantite_produit": 123
+    },
+    {
+        "nom_produit": "pomme",
+        "quantite_produit": 10
+    }
+]

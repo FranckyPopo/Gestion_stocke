@@ -10,7 +10,7 @@ Quantiter: {}
 """
 
 message_bienvenue = """
----------- Bienvenue dans le menu de gestion de stock ----------
+---------- Bienvenue dans le menu gestion de stock ----------
 1- Se ravitailler 
 2- Ajouter un client 
 3- Effectuer une livraison 

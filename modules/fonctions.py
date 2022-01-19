@@ -18,20 +18,30 @@ def ravitaillement():
     window.geometry("720x480")
     window.minsize(480, 360)
     
-    # Contenue frame gauche
-    frame_gauche = tkinter.Frame(window)
+    # Frame principale
+    frame_principale = tkinter.Frame(window)
+    
+    #Frame gauche
+    frame_gauche = tkinter.Frame(frame_principale, **disign.bordure_frame)
     
     label_produit = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit", **disign.style_label).grid(row=0, column=0)
-    entre_nom_produit = tkinter.Entry(frame_gauche).grid(row=1, column=0, padx=10)
+    entre_nom_produit = tkinter.Entry(frame_gauche, **disign.style_entrer).grid(row=1, column=0, ipadx=10)
     
-    label_quantite = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité", **disign.style_label).grid(row=2, column=0)
-    entrer_quantite = tkinter.Entry(frame_gauche, **disign.style_entrer).grid(row=3, column=0)
+    label_quantite = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité", **disign.style_label).grid(row=2, column=0, sticky="S")
+    entrer_quantite = tkinter.Entry(frame_gauche, **disign.style_entrer).grid(row=3, column=0, ipadx=10)
     
     bnt_enregistrer = tkinter.Button(frame_gauche, text="Enregistrer", **disign.disign_valider_acceuil).grid(row=4, column=0, pady=10)
     bnt_accueil = tkinter.Button(frame_gauche, text="Retour a la page d'acceuil", **disign.disign_valider_acceuil).grid(row=5, column=0)
-    frame_gauche.pack()
+    frame_gauche.grid(row=0, column=0)
     
-
+    # Frame droit
+    frame_droit = tkinter.Frame(frame_principale, **disign.bordure_frame)
+    
+    label_nom_client = tkinter.Label(frame_droit, text="Nom du client", **disign.label_frame_droit).grid(row=0, column=0, )
+    label_email_client = tkinter.Label(frame_droit, text="Email du client", **disign.label_frame_droit).grid(row=0, column=1)
+    
+    frame_droit.grid(row=0, column=1, ipady=75)
+    frame_principale.pack(expand="yes")
     window.mainloop()
 
     

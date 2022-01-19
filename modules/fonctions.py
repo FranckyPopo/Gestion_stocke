@@ -22,7 +22,7 @@ def ravitaillement():
     frame_titre.pack(fill="x")
     
     # Frame gauche
-    frame_gauche = tkinter.Frame(windown, bd=1, relief="solid",)
+    frame_gauche = tkinter.Frame(windown, bd=2, relief="solid",)
     
     label_1 = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit", **disingn.style_label)
     label_1.pack(padx=5)
@@ -42,13 +42,7 @@ def ravitaillement():
     frame_gauche.pack(side="left", fill="y")
     
     # # Frame droit
-    frame_droit = tkinter.Frame(windown, bd=1, relief="solid",)
-    
-    label_3 = tkinter.Label(frame_droit, text="Produit", **disingn.style_label_droit)
-    label_3.grid(row=1, column=2, padx=20)
-    
-    label_4 = tkinter.Label(frame_droit, text="Quantité", **disingn.style_label_droit)
-    label_4.grid(row=1, column=3, padx=20)
+    frame_droit = tkinter.Frame(windown, bd=2, relief="solid",)
     
     frame_droit.pack(side="right", fill="y")
     

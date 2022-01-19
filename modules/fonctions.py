@@ -7,7 +7,7 @@ dossier_actuel = os.getcwd()
 dossier_donnees = os.path.join(dossier_actuel, "data")
 
 # Récuperation des différentes données
-recuperation_clients =  data.get_data(dossier_donnees, "list_clients")
+recuperation_clients = data.get_data(dossier_donnees, "list_clients")
 recuration_produits = data.get_data(dossier_donnees, "list_product")
 recuration_historiques = data.get_data(dossier_donnees, "list_history")
 

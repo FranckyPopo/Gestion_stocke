@@ -1,3 +1,4 @@
+from curses import window
 import os
 import json
 from pydoc import text
@@ -19,28 +20,32 @@ def ravitaillement():
     window = tkinter.Tk()
     window.geometry("720x480")
     window.title("Ravitaillement")
+    window["bg"] = "grey"
     
-    frame_haut = tkinter.Frame(window, bg="#87CEED")
-    label0 = tkinter.Label(frame_haut, text="Se ravitailler", bg="#87CEED").pack()
+    frame_haut = tkinter.Frame(window, bg="#87CEED", )
+    label0 = tkinter.Label(frame_haut, text="Se ravitailler", bg="#87CEED", height=2, font=("Roboto", 24, "bold")).pack()
     frame_haut.pack(fill="x", side="top")
     
-    frame_gauche = tkinter.Frame(window)
+    frame_gauche = tkinter.Frame(window, bd=2, relief="solid")
     
-    label1 = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit: ").grid(row=0)
+    label1 = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit: ", font=("Roboto" , 18, "bold")).grid(row=0, sticky="w")
     produit = tkinter.StringVar()
-    entrer_produit = tkinter.Entry(frame_gauche, textvariable=produit).grid(row=1)
-    label2 = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité: ").grid(row=2)
+    entrer_produit = tkinter.Entry(frame_gauche, textvariable=produit, width=25).grid(row=1, sticky="w")
+    label2 = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité: ", font=("Roboto" , 18, "bold")).grid(row=2, sticky="w")
     quantite_produit = tkinter.IntVar()
-    entrer_quantiter_produit = tkinter.Entry(frame_gauche, textvariable=quantite_produit).grid(row=3)
-    bnt_valider = tkinter.Button(frame_gauche, text="Vaider", bg="black").grid(row=4)
+    entrer_quantiter_produit = tkinter.Entry(frame_gauche, textvariable=quantite_produit, width=25).grid(row=3, sticky="w")
+    bnt_valider = tkinter.Button(frame_gauche, text="Valider", bg="black", width=10, font=("Roboto" , 18, "bold")).grid(row=4)
     
-    frame_gauche.pack(side="left top")
-    frame_droit = tkinter.Frame(window)
+    frame_gauche.pack(padx=200, pady=70)
     
-    label3 = tkinter.Label(frame_droit, text="Produit").grid(row=0)
-    label4 = tkinter.Label(frame_droit, text="Quantité").grid(row=0, column=2)
     
-    frame_droit.pack(side="right")
+
+    # frame_droit = tkinter.Frame(window)
+    
+    # label3 = tkinter.Label(frame_droit, text="Produit").grid(row=0)
+    # label4 = tkinter.Label(frame_droit, text="Quantité").grid(row=0, column=2)
+    
+    # frame_droit.pack(side="right")
     
     window.mainloop()
     
@@ -134,62 +139,77 @@ def ajout_client():
         continuer = input("Voulez vous ajouter un autre client ? Si oui taper une lettre au hasard, sinon taper entrer: ")
     
 def livraison():
-        print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
+
+    window = tkinter.Tk()
+    window.geometry("720x480")
+    window.title("Commande")
+    window["bg"] = "grey"
+    
+    frame = tkinter.Frame(window, bg="blue")
+    #label1 = tkinter.Label(frame, text="Veuillez entrer vôtre addressz mail")
+    frame.pack()
+    
+    
+    window.mainloop()
+    
+    
+    exit()
+    print(" ---------- Bienvenue dans effectuer une livraisonnt  ----------")
         
-        continuer = None
-        while continuer != "":
-            print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
-            mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
-            produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
+    continuer = None
+        
+        # print("Pour effectuer une livraison vous devez renseigner vôtre addresse mail et la liste des produits")                  
+        # mail_livraison = input("Veuillez saisir vôtre addresse mail: ")
+        # produit_livraison = input("Veuillez entrer le nom du produit a livrer: ").lower()
             
-            try:
-                quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
-            except ValueError:
-                print("Veuillez saisir un nombre entier")
-                sleep(1)
-            else:
-                historique_livraison = {
-                    "email": mail_livraison, 
-                    "produit": produit_livraison, 
-                    "quantite_livraison": quantite_livraison
-                }    
+        # try:
+        #     quantite_livraison = int(input("Veuillez entrer la quantite a livrer: "))
+        # except ValueError:
+        #     print("Veuillez saisir un nombre entier")
+        #     sleep(1)
+        # else:
+        #     historique_livraison = {
+        #         "email": mail_livraison, 
+        #         "produit": produit_livraison, 
+        #         "quantite_livraison": quantite_livraison
+        #     }    
         
-                # On verifie que le mail, produit et la quantité demandé existe
-                mail_existe = produit_existe = False
+        #     # On verifie que le mail, produit et la quantité demandé existe
+        #     mail_existe = produit_existe = False
                 
-                for mail_client in recuperation_clients:
-                    if mail_client["email"] == mail_livraison:
-                        mail_existe = True
-                        break
+        #     for mail_client in recuperation_clients:
+        #         if mail_client["email"] == mail_livraison:
+        #             mail_existe = True
+        #             break
                     
-                for produit in recuration_produits:
-                    if produit["nom_produit"] == produit_livraison:
-                        produit_existe = True
-                        break
+        #     for produit in recuration_produits:
+        #         if produit["nom_produit"] == produit_livraison:
+        #             produit_existe = True
+        #             break
                             
-                quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
+        #     quantite_existe = True if produit["quantite_produit"] >= quantite_livraison else False
                                             
-                if not mail_existe:
-                    print("L'addresse email est incorrecte")
-                    sleep(1)
+        #     if not mail_existe:
+        #         print("L'addresse email est incorrecte")
+        #         sleep(1)
 
-                elif not produit_existe:
-                    print("Le produit que vous avez demandé n'existe pas")
-                    sleep(1)
+        #     elif not produit_existe:
+        #         print("Le produit que vous avez demandé n'existe pas")
+        #         sleep(1)
                     
-                elif not quantite_existe:
-                    print("La quantité que vous avez demandé est superieur a celle qui existe en stock")
-                    sleep(1.5)
+        #     elif not quantite_existe:
+        #         print("La quantité que vous avez demandé est superieur a celle qui existe en stock")
+        #         sleep(1.5)
                 
-                else:
-                    recuration_historiques.append(historique_livraison)
-                    produit["quantite_produit"] -= quantite_livraison
-                    data.recording_data(recuration_historiques, dossier_actuel, "data", "list_history")
-                    data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
-                    print("Vous venez d'effectuer une livraison")
-                    sleep(2)
+        #     else:
+        #         recuration_historiques.append(historique_livraison)
+        #         produit["quantite_produit"] -= quantite_livraison
+        #         data.recording_data(recuration_historiques, dossier_actuel, "data", "list_history")
+        #         data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
+        #         print("Vous venez d'effectuer une livraison")
+        #         sleep(2)
 
-                continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+        #     continuer = input("Voulez vous effectuer une autre livraison ? Si oui taper une lettre au hasard, sinon taper entrer: ")
     
 def historique():
     print(" ---------- Bienvenue dans l'historique  ----------")

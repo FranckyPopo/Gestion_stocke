@@ -1,6 +1,9 @@
 import os
 import json
+from pydoc import text
 from time import sleep
+import tkinter
+from turtle import right, width
 from . import data
 
 dossier_actuel = os.getcwd()
@@ -12,58 +15,86 @@ recuration_produits = data.get_data(dossier_donnees, "list_product")
 recuration_historiques = data.get_data(dossier_donnees, "list_history")
 
 def ravitaillement():
-    continuer = None
-    while continuer != "":
-        print(" ---------- Bienvenue dans ravitaillement  ----------")
     
-        nom_produit = input("Veuillez entrer le nom du produit: ").lower()
-        if nom_produit:
+    window = tkinter.Tk()
+    window.geometry("720x480")
+    window.title("Ravitaillement")
+    
+    frame_haut = tkinter.Frame(window, bg="#87CEED")
+    label0 = tkinter.Label(frame_haut, text="Se ravitailler", bg="#87CEED").pack()
+    frame_haut.pack(fill="x", side="top")
+    
+    frame_gauche = tkinter.Frame(window)
+    
+    label1 = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du produit: ").grid(row=0)
+    produit = tkinter.StringVar()
+    entrer_produit = tkinter.Entry(frame_gauche, textvariable=produit).grid(row=1)
+    label2 = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité: ").grid(row=2)
+    quantite_produit = tkinter.IntVar()
+    entrer_quantiter_produit = tkinter.Entry(frame_gauche, textvariable=quantite_produit).grid(row=3)
+    bnt_valider = tkinter.Button(frame_gauche, text="Vaider", bg="black").grid(row=4)
+    
+    frame_gauche.pack(side="left top")
+    frame_droit = tkinter.Frame(window)
+    
+    label3 = tkinter.Label(frame_droit, text="Produit").grid(row=0)
+    label4 = tkinter.Label(frame_droit, text="Quantité").grid(row=0, column=2)
+    
+    frame_droit.pack(side="right")
+    
+    window.mainloop()
+    
+    exit()
+    continuer = None
+    print(" ---------- Bienvenue dans ravitaillement  ----------")
+    
+    nom_produit = input("Veuillez entrer le nom du produit: ").lower()
+    if nom_produit:
         
-            # On verifie que l'utilisateur rentre bien un chiffre
-            try:
-                quantite_produit = int(input("Veuillez entrer la quantité: "))
-            except ValueError:
-                print("Vous devez saisir un nombre entre entier")
-                continue
-            else:
+        # On verifie que l'utilisateur rentre bien un chiffre
+        try:
+            quantite_produit = int(input("Veuillez entrer la quantité: "))
+        except ValueError:
+            print("Vous devez saisir un nombre entre entier")
+        else:
                 
-                if quantite_produit < 0:
-                    print("Veuillez entrer une quantité supérieur à 0")
+            if quantite_produit < 0:
+                print("Veuillez entrer une quantité supérieur à 0")
+                sleep(2)
+            else:
+                    # Création de l'instance qui va representer un produit
+                instance_produit = {"nom_produit": nom_produit, "quantite_produit": quantite_produit}  
+    
+                if not recuration_produits:
+                    recuration_produits.append(instance_produit)
+                    print("Vous venez d'ajouter un nouveau produit")
+                    data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
                     sleep(2)
                 else:
-                    # Création de l'instance qui va representer un produit
-                    instance_produit = {"nom_produit": nom_produit, "quantite_produit": quantite_produit}  
-    
-                    if not recuration_produits:
+                    produit_existe = False
+                    # On vérifie que le produit existe
+                    for produit in recuration_produits:  
+                        if nom_produit == produit["nom_produit"]: 
+                            produit_existe = True
+                            break
+                    
+                    quantite_total = produit["quantite_produit"] + quantite_produit
+                    
+                    if produit_existe:
+                        produit["quantite_produit"] += quantite_produit
+                        print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
+                        sleep(3)
+                    else:
                         recuration_produits.append(instance_produit)
                         print("Vous venez d'ajouter un nouveau produit")
-                        data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
-                        sleep(2)
-                    else:
-                        produit_existe = False
-                        # On vérifie que le produit existe
-                        for produit in recuration_produits:  
-                            if nom_produit == produit["nom_produit"]: 
-                                produit_existe = True
-                                break
-                    
-                        quantite_total = produit["quantite_produit"] + quantite_produit
-                    
-                        if produit_existe:
-                            produit["quantite_produit"] += quantite_produit
-                            print(f"Vous venez d'ajout au stock de {nom_produit} {quantite_produit} autres {nom_produit}, le nouveau stock est de: {quantite_total} {nom_produit}")
-                            sleep(3)
-                        else:
-                            recuration_produits.append(instance_produit)
-                            print("Vous venez d'ajouter un nouveau produit")
-                            sleep(3)  
+                        sleep(3)  
                             
-                    # On enregistre la liste des produits
-                    data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
+                # On enregistre la liste des produits
+                data.recording_data(recuration_produits, dossier_actuel, "data", "list_product")
             
-            continuer = input("Voulez vous continuer a vous ravitaillez ? Si oui taper une lettre au hasard, sinon taper entrer: ")
-        else:
-             print("Vous avez rien entré comme nom de produit")
+        continuer = input("Voulez vous continuer a vous ravitaillez ? Si oui taper une lettre au hasard, sinon taper entrer: ")
+    else:
+            print("Vous avez rien entré comme nom de produit")
 
 def ajout_client():
     print(" ---------- Bienvenue dans ajouter un client  ----------")

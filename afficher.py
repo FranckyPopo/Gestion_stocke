@@ -21,14 +21,14 @@ frame.pack(pady=30, ipadx=250, ipady=350)
 nom_produit = StringVar()
 quantite_produit = StringVar()
 
-template_stocke = """
-    {}:{}
-    ---------------
-    """
-for produit in recuration_produits:
-    produit_label = Text(frame,"Produit: %s\nQuantité: %s\n--------------" % (nom_produit.get(),quantite_produit.get()))
+# template_stocke = """
+#     {}:{}
+#     ---------------
+#     """
+# for produit in recuration_produits:
+#     produit_label = Text(frame,"Produit: %s\nQuantité: %s\n--------------" % (nom_produit.get(),quantite_produit.get()))
     
 #bouton pour revenir à la page d'accueil
-btn = Button(frame , text="Retour à la page d'accueil", font= "Roboto 17",relief=FLAT, bg="skyblue", width=20, height=3).pack(pady= 75)
+btn = Button(afficher , text="Retour à la page d'accueil", font= "Roboto 17",relief=FLAT, bg="skyblue", width=20, height=3).pack(pady= 75)
 
 afficher.mainloop()

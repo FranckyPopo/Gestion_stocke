@@ -1,4 +1,5 @@
 from curses import window
+from imp import reload
 import os
 import json
 from pydoc import text
@@ -184,11 +185,23 @@ def livraison():
     window = tkinter.Tk()
     window.geometry("720x480")
     window.title("Commande")
-    window["bg"] = "grey"
     
-    frame = tkinter.Frame(window, bg="blue")
-    #label1 = tkinter.Label(frame, text="Veuillez entrer vôtre addressz mail")
-    frame.pack()
+    frame = tkinter.Frame(window, bd=2, relief="solid")
+    label1 = tkinter.Label(frame, text="Veuillez entrer vôtre addressz mail").grid(row=0, sticky="w")
+    email = tkinter.StringVar()
+    entrer1 = tkinter.Entry(frame, textvariable=email).grid(row=1, sticky="w")
+    
+    label2 = tkinter.Label(frame, text="Veuillez entrer vôtre addressz mail").grid(row=2, sticky="w")
+    produit = tkinter.StringVar()
+    entrer2 = tkinter.Entry(frame, textvariable=produit).grid(row=3, sticky="w")
+    
+    label3 = tkinter.Label(frame, text="Veuillez entrer la quanrité a livrer").grid(row=4, sticky="w")
+    quantite = tkinter.StringVar()
+    entrer3 = tkinter.Entry(frame, textvariable=quantite).grid(row=5, sticky="w")
+    
+    bnt_commande = tkinter.Button(frame, text="Commander").grid(row=6)
+    
+    frame.pack(expand="yes")
     
     
     window.mainloop()

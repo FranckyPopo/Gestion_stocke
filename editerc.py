@@ -63,7 +63,7 @@ def open():
     top.geometry("800x800")
     heading1 = Label(top, text= "Modification Du Client ", bg="skyblue",highlightbackground="black", highlightthickness= 2, font="Roboto 20").pack(pady=50, ipadx=250, ipady=10)
 
-    frame2 = Frame(top,highlightbackground="black", highlightthickness= 3)
+    frame2 = Frame(top,highlightbackground="black", highlightthickness= 2)
     frame2.pack(pady=60)
     lbl1 = Label(frame2, text="Veuillez saisir l'ancien nom du client: ", font="Roboto 15")
     lbl2 = Label(frame2, text="Veuillez saisir l'ancien email du client: ", font="Roboto 15")

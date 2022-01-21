@@ -17,10 +17,23 @@ recuration_historiques = data.get_data(dossier_donnees, "list_history")
 
 def ravitaillement():
     
+    def ravitaillement2():
+        window2 = tkinter.Tk()
+        window2.geometry("720x480")
+        
+        frame_droit = tkinter.Frame(window2, bd=2, relief="solid")
+        
+        client1 = tkinter.Label(frame_droit, text="1. Jaques          jaques@gmail.com", font=("Roboto", 12, "bold")).grid(row=0, sticky="w")
+        client2 = tkinter.Label(frame_droit, text="2. Jean            jean@gmail.com", font=("Roboto", 12, "bold")).grid(row=1, sticky="w")
+        client3 = tkinter.Label(frame_droit, text="3. Alber           alber@gmail.com", font=("Roboto", 12, "bold")).grid(row=2, sticky="w")
+        
+        frame_droit.pack(expand='yes')
+        
+        window2.mainloop()
+    
     window = tkinter.Tk()
     window.geometry("720x480")
     window.title("Ravitaillement")
-    window["bg"] = "grey"
     
     frame_haut = tkinter.Frame(window, bg="#87CEED", )
     label0 = tkinter.Label(frame_haut, text="Se ravitailler", bg="#87CEED", height=2, font=("Roboto", 24, "bold")).pack()
@@ -34,18 +47,9 @@ def ravitaillement():
     label2 = tkinter.Label(frame_gauche, text="Veuillez entrer la quantité: ", font=("Roboto" , 18, "bold")).grid(row=2, sticky="w")
     quantite_produit = tkinter.IntVar()
     entrer_quantiter_produit = tkinter.Entry(frame_gauche, textvariable=quantite_produit, width=25).grid(row=3, sticky="w")
-    bnt_valider = tkinter.Button(frame_gauche, text="Valider", bg="black", width=10, font=("Roboto" , 18, "bold")).grid(row=4)
+    bnt_valider = tkinter.Button(frame_gauche, text="Valider", command=ravitaillement2, bg="black", width=10, font=("Roboto" , 18, "bold")).grid(row=4)
     
     frame_gauche.pack(padx=200, pady=70)
-    
-    
-
-    # frame_droit = tkinter.Frame(window)
-    
-    # label3 = tkinter.Label(frame_droit, text="Produit").grid(row=0)
-    # label4 = tkinter.Label(frame_droit, text="Quantité").grid(row=0, column=2)
-    
-    # frame_droit.pack(side="right")
     
     window.mainloop()
     

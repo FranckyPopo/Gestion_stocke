@@ -5,9 +5,9 @@ from pydoc import text
 from tkinter import*
 from turtle import heading, left
 
-#C'est le titre de la page et la couleur de fond
+#
 client = Tk()
-client.title("Gestion Des Stocks")
+client.title("Gestion De Stock")
 client.geometry("800x800")
 client.resizable(False,False)
 heading = Label(client, text= "Editer Un Client", bg="skyblue",highlightbackground="black", highlightthickness= 2, font="Roboto 20").pack(pady=50, ipadx=300, ipady=10)

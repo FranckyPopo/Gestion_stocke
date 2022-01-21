@@ -7,10 +7,10 @@ from turtle import heading, left
 
 #C'est le titre de la page et la couleur de fond
 editerp = Tk()
-editerp.title("Gestion Des Stocks")
+editerp.title("Gestion De Stock")
 editerp.geometry("800x800")
 editerp.resizable(False,False)
-heading = Label(editerp, text= "Editer Un Client", bg="skyblue",highlightbackground="black", highlightthickness= 2, font="Roboto 20").pack(pady=50, ipadx=300, ipady=10)
+heading = Label(editerp, text= "Editer Un Produit", bg="skyblue",highlightbackground="black", highlightthickness= 2, font="Roboto 20").pack(pady=50, ipadx=300, ipady=10)
 
 frame1 = Frame(editerp, highlightbackground="black", highlightthickness= 1)
 frame1.pack(pady=60, padx=20)

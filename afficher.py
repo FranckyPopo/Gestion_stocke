@@ -9,10 +9,10 @@ import style
 
 #C'est le titre de la page et la couleur de fond
 afficher = Tk()
-afficher.title("Gestion Des Stock")
+afficher.title("Gestion De Stock")
 afficher.geometry("800x800")
-afficher.configure(bg="#808080")
-heading = Label(afficher, text= "Afficher Le Stock", bg="skyblue",highlightbackground="black", highlightthickness= 3, font="Roboto 20").pack(pady=30, ipadx=300, ipady=10)
+afficher.resizable(False, False)
+heading = Label(afficher, **style.heading).pack(pady=30, ipadx=300, ipady=10)
 
 #Création du cadre qui contiendra le nom du produit et la quantité du produit.
 frame1 = Frame(afficher, highlightbackground="black", highlightthickness= 1)
@@ -59,6 +59,14 @@ quantite5.grid(row=13 , column=0,sticky='w')
 line5.grid(row=14 , column=0,sticky='w')
 
 #bouton pour revenir à la page d'accueil
-btn = Button(afficher , text="Retour à la page d'accueil", font= "Roboto 17",relief=FLAT, bg="skyblue", highlightcolor="black", highlightthickness=2,  width=20, height=1).pack(pady= 75)
+btn = Button(afficher, 
+    relief = RIDGE,
+    text="Retour à la page d'accueil", 
+    font="Roboto 17", 
+    bg ="skyblue", 
+    highlightcolor="black", 
+    highlightthickness =2,  
+    width=20, 
+    height=1).pack(pady= 75)
 
 afficher.mainloop()

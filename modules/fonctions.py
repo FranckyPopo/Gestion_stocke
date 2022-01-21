@@ -23,9 +23,9 @@ def ravitaillement():
         
         frame_droit = tkinter.Frame(window2, bd=2, relief="solid")
         
-        client1 = tkinter.Label(frame_droit, text="1. Jaques          jaques@gmail.com", font=("Roboto", 12, "bold")).grid(row=0, sticky="w")
-        client2 = tkinter.Label(frame_droit, text="2. Jean            jean@gmail.com", font=("Roboto", 12, "bold")).grid(row=1, sticky="w")
-        client3 = tkinter.Label(frame_droit, text="3. Alber           alber@gmail.com", font=("Roboto", 12, "bold")).grid(row=2, sticky="w")
+        produit1 = tkinter.Label(frame_droit, text="1. Pomme          10", font=("Roboto", 12, "bold")).grid(row=0, sticky="w")
+        produit2 = tkinter.Label(frame_droit, text="2. Orange         13", font=("Roboto", 12, "bold")).grid(row=1, sticky="w")
+        produit3 = tkinter.Label(frame_droit, text="3. Viande         16", font=("Roboto", 12, "bold")).grid(row=2, sticky="w")
         
         frame_droit.pack(expand='yes')
         
@@ -106,8 +106,45 @@ def ravitaillement():
             print("Vous avez rien entré comme nom de produit")
 
 def ajout_client():
-    print(" ---------- Bienvenue dans ajouter un client  ----------")
+    
+    def ajouter_client2():
+        window2 = tkinter.Tk()
+        window2.geometry("720x480")
         
+        frame_droit = tkinter.Frame(window2, bd=2, relief="solid")
+        
+        client1 = tkinter.Label(frame_droit, text="1. Jaques          jaques@gmail.com", font=("Roboto", 12, "bold")).grid(row=0, sticky="w")
+        client2 = tkinter.Label(frame_droit, text="2. Jean            jean@gmail.com", font=("Roboto", 12, "bold")).grid(row=1, sticky="w")
+        client3 = tkinter.Label(frame_droit, text="3. Alber           alber@gmail.com", font=("Roboto", 12, "bold")).grid(row=2, sticky="w")
+        
+        frame_droit.pack(expand='yes')
+        
+        window2.mainloop()
+    
+    window3 = tkinter.Tk()
+    window3.geometry("720x480")
+    window3.title("Ajout client")
+    
+    frame_haut3 = tkinter.Frame(window3, bg="#87CEED", )
+    label0 = tkinter.Label(frame_haut3, text="Ajouter un client", bg="#87CEED", height=2, font=("Roboto", 24, "bold")).pack()
+    frame_haut3.pack(fill="x", side="top")
+    
+    frame_gauche = tkinter.Frame(window3, bd=2, relief="solid")
+    
+    label1 = tkinter.Label(frame_gauche, text="Veuillez entrer le nom du client: ", font=("Roboto" , 18, "bold")).grid(row=0, sticky="w")
+    produit = tkinter.StringVar()
+    entrer_produit = tkinter.Entry(frame_gauche, textvariable=produit, width=25).grid(row=1, sticky="w")
+    label2 = tkinter.Label(frame_gauche, text="Veuillez entrer l'email du client: ", font=("Roboto" , 18, "bold")).grid(row=2, sticky="w")
+    quantite_produit = tkinter.IntVar()
+    entrer_quantiter_produit = tkinter.Entry(frame_gauche, textvariable=quantite_produit, width=25).grid(row=3, sticky="w")
+    bnt_valider = tkinter.Button(frame_gauche, text="Valider", command=ajouter_client2, bg="black", width=10, font=("Roboto" , 18, "bold")).grid(row=4)
+    
+    frame_gauche.pack(padx=200, pady=70)
+    
+    window3.mainloop()
+    
+    exit()
+    print(" ---------- Bienvenue dans ajouter un client  ----------")
     continuer = None
     while continuer != "":
         nom_client = input("Veuillez entrer le nom du client: ").lower()
